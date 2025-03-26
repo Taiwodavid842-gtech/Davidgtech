@@ -6,71 +6,150 @@
     <link rel="stylesheet" href="style.css">
      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
     <style>
-        Body{
-            Background-color: #f0f0f0 ;
-                }
-                Form{
-                text-align:center; 
-               } 
-               input[type="text"]{
-                border-style: 2px solid beige;
-                border-radius: 7px;
-                font-size: 20px;
-                height: 30px;
-                color: black;
-                Margin:0;
-                }
-                input[type="password"]{
-                border-style: 2px solid beige;
-                border-radius: 7px;
-                font-size: 20px;
-                height: 30px;
-                color: black;
-                Margin:0;
-                }
-                
-                
-                
-                input[type="button"]{
-                border-style: ;
-                border-radius: 7px;
-                font-size: 20px;
-                height: 30px;
-                color: black;
-                }
-               .div2{
-                    border: 1px solid #ddd;
-                    Border-radius: 10px;
-                    Padding-bottom: 40px;
-                    Border-color:  ;
-                    Background-color: white;
-                    margin: 7px;
-                 
-                }
-                div1{
-                    Background-color: green;
-                }
-                alert {
-  font-size: 16px;
+/* Global Styles */
+body {
   font-family: Arial, sans-serif;
-  height:750px;
-  Width:800px;
-
+  margin: 0;
+  padding: 0;
+  background-color: #f0f0f0;
 }
 
+/* Desktop Styles */
+@media (min-width: 768px) {
+  .div1 {
+    background-color: green;
+    padding: 20px;
+  }
+  .div2 {
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    padding: 20px;
+    background-color: white;
+    margin: 20px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  }
+  form {
+    text-align: center;
+  }
+  input[type="text"], input[type="password"] {
+    border-style: 2px solid beige;
+    border-radius: 7px;
+    font-size: 20px;
+    height: 30px;
+    color: black;
+    margin: 10px;
+  }
+  input[type="button"] {
+    border-style: none;
+    border-radius: 7px;
+    font-size: 20px;
+    height: 30px;
+    color: black;
+    background-color: #4CAF50;
+    cursor: pointer;
+  }
+  footer {
+    margin-top: 50px;
+    text-align: center;
+    color: green;
+  }
+}
 
+/* Tablet Styles */
+@media (min-width: 480px) and (max-width: 767px) {
+  .div1 {
+    background-color: green;
+    padding: 10px;
+  }
+  .div2 {
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    padding: 10px;
+    background-color: white;
+    margin: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  }
+  form {
+    text-align: center;
+  }
+  input[type="text"], input[type="password"] {
+    border-style: 2px solid beige;
+    border-radius: 7px;
+    font-size: 18px;
+    height: 25px;
+    color: black;
+    margin: 5px;
+  }
+  input[type="button"] {
+    border-style: none;
+    border-radius: 7px;
+    font-size: 18px;
+    height: 25px;
+    color: black;
+    background-color: #4CAF50;
+    cursor: pointer;
+  }
+  footer {
+    margin-top: 30px;
+    text-align: center;
+    color: green;
+  }
+}
+
+/* Mobile Styles */
+@media (max-width: 479px) {
+  .div1 {
+    background-color: green;
+    padding: 5px;
+  }
+  .div2 {
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    padding: 5px;
+    background-color: white;
+    margin: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  }
+  form {
+    text-align: center;
+  }
+  input[type="text"], input[type="password"] {
+    border-style: 2px solid beige;
+    border-radius: 7px;
+    font-size: 16px;
+    height: 20px;
+    color: black;
+    margin: 2px;
+  }
+  input[type="button"] {
+    border-style: none;
+    border-radius: 7px;
+    font-size: 16px;
+    height: 20px;
+    color: black;
+    background-color: #4CAF50;
+    cursor: pointer;
+  }
+  footer {
+    margin-top: 20px;
+    text-align: center;
+    color: green;
+  }
+}
+
+/* Dialog Box Styles */
 #dialog-box {
   position: fixed;
   top: 40%;
-  left: 51%;
+  left: 50%;
   transform: translate(-50%, -50%);
-  background-color: green ;
+  background-color: green;
   padding: 20px;
-  border: px solid snow;
-  border-radius: 5px;
+  border: 1px solid #ddd;
+  border-radius: 10px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
-  Color: white;
- } 
+  color: white;
+}
 
 #ok-button {
   background-color: #4CAF50;
@@ -82,8 +161,9 @@
 }
 
 #ok-button:hover {
-  background-color: ;
+  background-color: #3e8e41;
 }
+
     </style>
 </head>
 <body><br>
@@ -98,7 +178,7 @@
         <input type="button" value="login account">
        <br><br><br>
        <p>Don't have an<span style="color: green"> Account? </span> , create an account </p>
-    <a href="BitchartRegistration.html"> <input type="button" value="create an account "></a>
+    <a href="BitReg.html"> <input type="button" value="create an account "></a>
    
    </form>
    </div>
