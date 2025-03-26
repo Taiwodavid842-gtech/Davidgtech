@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Page title</title>
+    <link rel="stylesheet" href="style.css">
+     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+    <style>
+        Body{
+            Background-color: #f0f0f0 ;
+                }
+                Form{
+                text-align:center; 
+               } 
+               input[type="text"]{
+                border-style: 2px solid beige;
+                border-radius: 7px;
+                font-size: 20px;
+                height: 30px;
+                color: black;
+                Margin:0;
+                }
+                input[type="password"]{
+                border-style: 2px solid beige;
+                border-radius: 7px;
+                font-size: 20px;
+                height: 30px;
+                color: black;
+                Margin:0;
+                }
+                
+                
+                
+                input[type="button"]{
+                border-style: ;
+                border-radius: 7px;
+                font-size: 20px;
+                height: 30px;
+                color: black;
+                }
+               .div2{
+                    border: 1px solid #ddd;
+                    Border-radius: 10px;
+                    Padding-bottom: 40px;
+                    Border-color:  ;
+                    Background-color: white;
+                    margin: 7px;
+                 
+                }
+                div1{
+                    Background-color: green;
+                }
+                alert {
+  font-size: 16px;
+  font-family: Arial, sans-serif;
+  height:750px;
+  Width:800px;
+
+}
+
+
+#dialog-box {
+  position: fixed;
+  top: 40%;
+  left: 51%;
+  transform: translate(-50%, -50%);
+  background-color: green ;
+  padding: 20px;
+  border: px solid snow;
+  border-radius: 5px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+  Color: white;
+ } 
+
+#ok-button {
+  background-color: #4CAF50;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+#ok-button:hover {
+  background-color: ;
+}
+    </style>
+</head>
+<body><br>
+    <div class="div1"><div class="div2">
+    <h4 style="text-align: center; margin:40px; color: green; font-size: 18px;"> <span style="color:black">BIT</span>CHART</h4>
+    
+    <h4 style="font-size:25px; text-align: center; color: black "><span style="color:green">W</span>ELCOM<span style="color: green">E</span>
+   <span>  <i style ="color: green; margin-top: 11px"  class="fa fa-user"  aria-hidden="true"></i> </span></h4>
+     <form>
+        <input type="text" placeholder="mobile number or email address" required><br><br>
+        <input type="password" placeholder="password" name="password "required><br><br>   
+        <input type="button" value="login account">
+       <br><br><br>
+       <p>Don't have an<span style="color: green"> Account? </span> , create an account </p>
+    <a href="BitReg.html"> <input type="button" value="create an account "></a>
+   
+   </form>
+   </div>
+    
+    <footer style="margin-top:70px; text-align: center; color: green"><b>from<br><i> <span style="font-size: 23px; color:Black">GTech</span></i></b></footer></div>
+    <div id="dialog-box" style="display:none;">
+  <h2>Go straight in creating an account</h2>
+  <button id="ok-button">OK</button>
+</div>
+    <script>
+        
+
+
+document.getElementById("ok-button").addEventListener("click", function() {
+  document.getElementById("dialog-box").style.display = "none";
+});
+
+document.getElementById("dialog-box").style.display = "block";
+
+    </script>
+</body>
+</html>
