@@ -128,20 +128,226 @@ profileImageFile.addEventListener('change', () => {
       console.error('Invalid image URL');
     }
   });
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Page title</title>
+    <style>
+        ```
 
-  reader.addEventListener('error', () => {
-    console.error('Error reading file');
-  });
+CSS:
 
-  reader.readAsDataURL(profileImageFile.files[0]);
+```
+/* Global Styles */
+
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  background-color: #f0f0f0;
+}
+
+/* Container Styles */
+
+.container {
+  max-width: 400px;
+  margin: 60px auto;
+  padding: 20px;
+  background-color: #fff;
+  border: 1px solid #ddd;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+  border-radius: 10px;
+}
+
+/* Responsive Container Styles */
+
+@media (max-width: 767px) {
+  .container {
+    margin: 20px auto;
+    padding: 10px;
+  }
+}
+
+@media (max-width: 479px) {
+  .container {
+    margin: 10px auto;
+    padding: 5px;
+  }
+}
+
+/* User Profile Styles */
+
+.user-profile {
+  text-align: center;
+}
+
+#profile-picture {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  object-fit: cover;
+  margin-bottom: 10px;
+}
+
+#user-name {
+  font-weight: bold;
+  color: #333;
+  Margin-top:2px;
+  margin-bottom: 25px;
+  Color: black;
+}
+
+/* Form Styles */
+
+.form-group {
+  margin-bottom: 20px;
+}
+
+label {
+  display: block;
+  margin-bottom: 10px;
+  padding-top: 15px;
+  color: black;
+}
+
+input[type="text"],
+input[type="date"],
+input[type="number"],
+input[type="email"],
+input[type="password"] {
+  width: 100%;
+  height: 40px;
+  padding: 3px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+/* Responsive Form Styles */
+
+@media (max-width: 479px) {
+  input[type="text"],
+  input[type="date"],
+  input[type="number"],
+  input[type="email"],
+  input[type="password"] {
+    height: 30px;
+  }
+}
+
+button[type="submit"] {
+  width: 70%;
+  height: 40px;
+  padding: 5px;
+  background-color: white ;
+  Color:green ;
+  border: none;
+  border-radius: 9px;
+  color: white;
+  margin-left: 30px;
+  cursor: pointer;
+}
+
+button[type="submit"]:hover {
+  background-color: #3e8e41;
+}
+
+#btn{
+    color:green;
+    text-decoration:none;
+}
+    </style>
+</head>
+<body>
+  <div class="container">
+    <h2 style="color:green ">Account Created Successfully!</h2>
+    <div class="user-profile">
+      <img id="profile-picture" src="" alt="Profile Picture" />
+      <p id="user-name"></p>
+    </div>
+    <p style="color:"><b>Welcome</b>,<span id="username" style="color:green"></span></p>
+    <br /><br />
+    <form>
+      <div class="form-group">
+        <label for="profile-pic"><i>Choose/Change Image</i></label>
+        <input type="file" id="profileImage" accept="image/*" style="display: none" />
+        <button id="upload-button" type="button">Upload Image</button>
+        <br /><br />
+        <button id="btn"><a style="color:black; text-decoration:none" href="home.html">Star Chart</a></button>
+      </div>
+    </form>
+  </div>
+
+  <script>
+
+try {
+  // Retrieve the first name and last name from localStorage
+  const firstName = localStorage.getItem('firstName');
+  const lastName = localStorage.getItem('lastName');
+
+  // Display the full name
+  const usernameElement = document.getElementById('username');
+  if (usernameElement) {
+    usernameElement.textContent = `${firstName} ${lastName}`;
+  } else {
+    console.error('Missing element: #username');
+  }
+
+  // Display the full name under the profile picture
+  const userNameElement = document.getElementById('user-name');
+  if (userNameElement) {
+    userNameElement.textContent = `${firstName} ${lastName}`;
+  } else {
+    console.error('Missing element: #user-name');
+  }
+
+  // Display profile picture
+  const profilePictureElement = document.getElementById('profile-picture');
+  if (profilePictureElement) {
+    const storedProfilePicture = localStorage.getItem('profilePicture');
+    if (storedProfilePicture) {
+      profilePictureElement.src = storedProfilePicture;
+    }
+  } else {
+    console.error('Missing element: #profile-picture');
+  }
+
+  const profileImageFileInput = document.getElementById('profileImage');
+  if (profileImageFileInput) {
+    profileImageFileInput.addEventListener('change', () => {
+      const reader = new FileReader();
+
+reader.addEventListener('load', () => {
+  if (reader.result && reader.result.startsWith('data:image/')) {
+    profilePictureElement.src = reader.result;
+    localStorage.setItem('profilePicture', reader.result);
+  } else {
+    console.error('Invalid image URL');
+  }
 });
 
-const uploadButton = document.getElementById('upload-button');
-
-uploadButton.addEventListener('click', () => {
-  profileImageFile.click();
+reader.addEventListener('error', () => {
+  console.error('Error reading file');
 });
 
-  </script>
+reader.readAsDataURL(profileImageFileInput.files[0]);
+});
+} else {
+console.error('Missing element: #profileImage');
+}
+
+const uploadButtonElement = document.getElementById('upload-button');
+if (uploadButtonElement) {
+uploadButtonElement.addEventListener('click', () => {
+profileImageFileInput.click();
+});
+} else {
+console.error('Missing element: #upload-button');
+}
+} catch (error) {
+console.error('Error:', error);
+}
+
+</script>
 </body>
-  </html> 
+</html>
