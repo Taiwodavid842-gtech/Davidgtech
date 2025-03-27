@@ -3,9 +3,10 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Social Media Handle</title>
+  <title>Home</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
   <style>
-      *{
+*{
           box-sizing: border-box;
           margin:0;
           padding:0;
@@ -20,14 +21,15 @@
   width:100%;
   Z-index: 1000;
 }
-
 header{
-  padding: ;
+  padding: 1 rem;
   text-align:center;
   Position: fixed;
   background-color: ;
   color:green;
     padding-bottom: 80px;
+    Width:100%;
+    Margin-bottom: 24px;
 }
 
 header nav ul{
@@ -53,7 +55,7 @@ header nav ul li{
    header nav a:hover{
    color:#ccc;
    }
-   
+  
   .user-Profile{
       max-width:400px;
       margin: 10px;
@@ -61,32 +63,40 @@ header nav ul li{
       background-color:#fff;
       border: 1px solid #ddd;
       box-shadow: 0 0 10px rgba(0,0,0,0.1);
-      position : fixed;  
+      position : relative;  
       top:50%;
       left: 50%;
+      Width:100%;
   }
     #profile-picture{
+    Padding:9px;
       height: 70ox;
       width: 70px;
       border-radius:50%;
-      margin-left: 139px;
-      margin-top: 10px;
-        
+      display: block;
+      margin:auto;
+        Position:relative;
     } 
     
     #text{
-        margin-left: 130px;
+        margin-left:;
         padding-top: 4px;
+        text-align:center ;
+        Position: relative;
     }
     
    .userprofile p{
     text-align:center;
      font-size:18px;
-     margin-button:0;
+     Position: relative;
+     Width:100%
    }
    #username{
        font-weight:bold;
        color:green;
+       
+       margin-left:17px;
+       
    }
    
    #textarea-post-button{
@@ -307,9 +317,7 @@ header nav ul li{
 .footer-copyright {
   margin-top: 20px;
 }
-
   </style>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
 <body>
   <header>
@@ -326,7 +334,7 @@ header nav ul li{
       <section id="#profile"> 
     <div style="background-color: #f0f0f0 "; "padding:0" class="user-profile">
       <img id="profile-picture" src="" alt="profile picture">
-      <p id="text"><b></b><span id="username"></span>!</p>
+      <p id="text"><b></b><span id="username"></span></p>
       <p style="text-align:center" id="active">Active</p>
       <p style="text-align:center" id="bitname">@Bitchart</p><br>
     
@@ -348,15 +356,15 @@ header nav ul li{
    <div class="story-image empty">
           <span>Tap to add image</span>
       </div>
- <!--   <div class="story-image empty">
+  <div class="story-image empty">
           <span>Tap to add image</span>
-      </div>
+   <!--    </div>
       <div class="story-image empty">
           <span>Tap to add image</span>
       </div><!--  -->
   </div>
   </section>
-  
+  <br><br>
   <section>
   <div class="post-container">
     <textarea class="post-textarea" placeholder="Write a post..."></textarea>
@@ -381,10 +389,10 @@ header nav ul li{
 
   // Get username from local storage
 const firstName = localStorage.getItem('firstName');
-const secondName = localStorage.getItem('secondName');
+const lastName = localStorage.getItem('lastName');
 
-if (firstName && secondName) {
-  document.getElementById("username").innerHTML = `${firstName} ${secondName}`;
+if (firstName && lastName) {
+  document.getElementById("username").innerHTML = `${firstName} ${lastName}`;
 } else {
   console.error('Username not found in local storage');
 }
