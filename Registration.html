@@ -1,213 +1,370 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Registration Page</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Secure Registration</title>
   <style>
-    /* Global Styles */
-    body {
-      font-family: Arial, sans-serif;
+    :root {
+      --primary-color: #2ecc71;
+      --error-color: #e74c3c;
+      --text-color: #2c3e50;
+      --border-color: #ecf0f1;
+    }
+
+    * {
+      box-sizing: border-box;
       margin: 0;
       padding: 0;
-      background-color: #f0f0f0;
     }
-    
-    /* Container Styles */
+
+    body {
+      font-family: 'Segoe UI', system-ui, sans-serif;
+      background-color: #f8f9fa;
+      line-height: 1.6;
+    }
+
     .container {
-      max-width: 400px;
-      margin: 60px auto;
-      padding: 20px;
-      background-color: #fff;
-      border: 1px solid #ddd;
-      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      max-width: 500px;
+      margin: 2rem auto;
+      padding: 2rem;
+      background: white;
       border-radius: 10px;
+      box-shadow: 0 2px 15px rgba(0, 0, 0, 0.1);
     }
-    
-    /* Responsive Container Styles */
-    @media (max-width: 767px) {
-      .container {
-        margin: 20px auto;
-        padding: 10px;
-      }
-    }
-    
-    @media (max-width: 479px) {
-      .container {
-        margin: 10px auto;
-        padding: 5px;
-      }
-    }
-    
-    /* Form Styles */
+
     h2 {
       text-align: center;
-      margin-bottom: 20px;
-      color: green;
+      color: var(--primary-color);
+      margin-bottom: 1.5rem;
     }
-    
+
+    .form-group {
+      margin-bottom: 1.2rem;
+      position: relative;
+    }
+
     label {
       display: block;
-      margin-bottom: 10px;
-      padding-top: 15px;
-      color: green;
+      margin-bottom: 0.5rem;
+      font-weight: 500;
+      color: var(--text-color);
     }
-    
-    input[type="text"], input[type="date"], input[type="number"], input[type="email"], input[type="password"] {
+
+    input {
       width: 100%;
-      height: 40px;
-      padding: 3px;
-      border: 1px solid #ccc;
-      border-radius: 5px;
+      padding: 0.8rem;
+      border: 2px solid var(--border-color);
+      border-radius: 6px;
+      font-size: 1rem;
+      transition: border-color 0.3s ease;
     }
-    
-    /* Responsive Form Styles */
-    @media (max-width: 479px) {
-      input[type="text"], input[type="date"], input[type="number"], input[type="email"], input[type="password"] {
-        height: 30px;
-      }
+
+    input:focus {
+      outline: none;
+      border-color: var(--primary-color);
+      box-shadow: 0 0 0 3px rgba(46, 204, 113, 0.2);
     }
-    
+
+    .password-strength {
+      height: 4px;
+      background: #eee;
+      margin-top: 0.5rem;
+      border-radius: 2px;
+      overflow: hidden;
+      position: relative;
+    }
+
+    .password-strength::after {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 0;
+      height: 100%;
+      width: var(--strength);
+      background: var(--strength-color);
+      transition: all 0.3s ease;
+    }
+
+    .error-message {
+      color: var(--error-color);
+      font-size: 0.875rem;
+      margin-top: 0.25rem;
+      display: none;
+    }
+
     button[type="submit"] {
-      width: 70%;
-      height: 40px;
-      padding: 5px;
-      background-color: #4CAF50;
-      border: none;
-      border-radius: 9px;
+      width: 100%;
+      padding: 1rem;
+      background: var(--primary-color);
       color: white;
-      margin-left: 30px;
+      border: none;
+      border-radius: 6px;
+      font-size: 1rem;
+      font-weight: 600;
       cursor: pointer;
+      transition: background 0.3s ease;
     }
-    
+
     button[type="submit"]:hover {
-      background-color: #3e8e41;
+      background: #27ae60;
     }
-    
-    /* Additional Registration Features */
-    #password-strength {
-      font-size: 14px;
-      color: gray;
+
+    .terms-label {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      margin: 1rem 0;
     }
-    
-    #password-strength.weak {
-      color: red;
-    }
-    
-    #password-strength-medium {
-      color: yellow;
-    }
-    
-    #password-strength.strong {
-      color: green;
-    }
-    
-    #terms-and-conditions {
-      font-size: 14px;
-      color: gray;
-    }
-    
-    #register-success {
-      display: none;
-      font-size: 18px;
-      color: green;
+
+    .alert {
+      padding: 1rem;
+      border-radius: 6px;
+      margin: 1rem 0;
       text-align: center;
-      margin-top: 20px;
-    }
-    
-    #register-failed {
       display: none;
-      font-size: 18px;
-      color: red;
-      text-align: center;
-      margin-top: 20px;
+    }
+
+    .alert-success {
+      background: #d4edda;
+      color: #155724;
+    }
+    .loader {
+  border: 3px solid #f3f3f3;
+  border-radius: 50%;
+  border-top: 3px solid var(--primary-color);
+  width: 20px;
+  height: 20px;
+  animation: spin 1s linear infinite;
+  display: inline-block;
+  vertical-align: middle;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+    .alert-error {
+      background: #f8d7da;
+      color: #721c24;
+    }
+
+    @media (max-width: 480px) {
+      .container {
+        margin: 1rem;
+        padding: 1rem;
+      }
     }
   </style>
 </head>
 <body>
   <div class="container">
-    <h2>Create an Account</h2>
+    <h2>Create Secure Account</h2>
     
-    <form id="register-form">
+    <form id="register-form" novalidate>
       <div class="form-group">
         <label for="first-name">First Name</label>
-        <input type="text" id="first-name" placeholder="Matthew" required>
+        <input type="text" id="first-name" autocomplete="given-name" required>
+        <div class="error-message" data-error="firstName"></div>
       </div>
+
       <div class="form-group">
         <label for="last-name">Last Name</label>
-        <input type="text" id="last-name" placeholder="Rick" required>
+        <input type="text" id="last-name" autocomplete="family-name" required>
+        <div class="error-message" data-error="lastName"></div>
       </div>
+
       <div class="form-group">
         <label for="email">Email</label>
-        <input type="email" id="email" placeholder="example@example.com" required>
+        <input type="email" id="email" autocomplete="email" required>
+        <div class="error-message" data-error="email"></div>
       </div>
+
       <div class="form-group">
-        <label for="mobile-digit">Mobile Digit</label>
-        <input type="number" id="mobile-digit" placeholder="+234805436536" required>
+        <label for="mobile">Mobile Number</label>
+        <input type="tel" id="mobile" pattern="[+]?[\d\s-]{10,15}" autocomplete="tel" required>
+        <div class="error-message" data-error="mobile"></div>
       </div>
+
       <div class="form-group">
-        <label for="date-of-birth">Date of Birth</label>
-        <input type="date" id="date-of-birth" required>
+        <label for="dob">Date of Birth</label>
+        <input type="date" id="dob" max="<?= date('Y-m-d', strtotime('-13 years')) ?>" required>
+        <div class="error-message" data-error="dob"></div>
       </div>
+
       <div class="form-group">
         <label for="password">Password</label>
-        <input type="password" id="password" placeholder="Password" required>
-        <span id="password-strength"></span>
+        <input type="password" id="password" autocomplete="new-password" required>
+        <div class="password-strength"></div>
+        <div class="error-message" data-error="password"></div>
       </div>
-<div class="form-group">
-  <label for="confirm-password">Confirm Password</label>
-  <input type="password" id="confirm-password" placeholder="Confirm Password" required>
-</div>
-<div class="form-group">
-  <input type="checkbox" id="terms-and-conditions" required>
-  <label for="terms-and-conditions">I agree to the terms and conditions</label>
-</div>
-<button type="submit">Register</button>
-<div id="register-success">Registration successful!</div>
-<div id="register-failed">Registration failed. Please try again.</div>
-</form>
-</div>
 
-<script>
-  const registerForm = document.getElementById('register-form');
-  registerForm.addEventListener('submit', (event) => {
-    event.preventDefault();
-    const firstName = document.getElementById('first-name').value;
-    const lastName = document.getElementById('last-name').value;
-    const email = document.getElementById('email').value;
-    const mobileDigit = document.getElementById('mobile-digit').value;
-    const dateOfBirth = document.getElementById('date-of-birth').value;
-    const password = document.getElementById('password').value;
-    const confirmPassword = document.getElementById('confirm-password').value;
-    const termsAndConditions = document.getElementById('terms-and-conditions').checked;
+      <div class="form-group">
+        <label for="confirm-password">Confirm Password</label>
+        <input type="password" id="confirm-password" autocomplete="new-password" required>
+        <div class="error-message" data-error="confirmPassword"></div>
+      </div>
 
-    // Validate form data
-    if (!firstName || !lastName || !email || !mobileDigit || !dateOfBirth || !password || !confirmPassword) {
-      alert('Please fill in all fields.');
-      return;
+      <div class="terms-label">
+        <input type="checkbox" id="terms" required>
+        <label for="terms">I agree to the Terms & Privacy Policy</label>
+      </div>
+      
+      
+  <!-- Add this error element -->
+  <div class="error-message" data-error="terms"></div>
+</div>
+      
+
+      <button type="submit">Create Account</button>
+
+      <div class="alert alert-success">Registration successful! Redirecting...</div>
+      <div class="alert alert-error"></div>
+    </form>
+  </div>
+
+  <script>
+      document.addEventListener('DOMContentLoaded', () => {
+    const form = document.getElementById('register-form');
+    const password = document.getElementById('password');
+    const confirmPassword = document.getElementById('confirm-password');
+    const strengthBar = document.querySelector('.password-strength');
+
+    // Set max date for date of birth (13 years minimum age)
+    document.getElementById('dob').max = new Date(
+        new Date().setFullYear(new Date().getFullYear() - 13)
+    ).toISOString().split('T')[0];
+
+    // Real-time validation
+    form.addEventListener('input', (e) => {
+        validateField(e.target);
+        if(e.target === password) checkPasswordStrength();
+        if(e.target === confirmPassword) validatePasswordMatch();
+    });
+
+    // Password strength calculator
+    function checkPasswordStrength() {
+        const strength = calculateStrength(password.value);
+        strengthBar.style.setProperty('--strength', `${strength.score * 25}%`);
+        strengthBar.style.setProperty('--strength-color', strength.color);
     }
 
-    if (password !== confirmPassword) {
-      alert('Passwords do not match.');
-      return;
+    function calculateStrength(pass) {
+        let score = 0;
+        if (pass.length >= 8) score++;
+        if (pass.match(/[A-Z]/)) score++;
+        if (pass.match(/[0-9]/)) score++;
+        if (pass.match(/[^A-Za-z0-9]/)) score++;
+        
+        return {
+            score,
+            color: score < 2 ? '#e74c3c' : score < 4 ? '#f1c40f' : '#2ecc71'
+        };
     }
 
-    if (!termsAndConditions) {
-      alert('Please agree to the terms and conditions.');
-      return;
+    // Form submission handler
+    form.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        if(validateForm()) {
+            try {
+                showLoading(true);
+                // Simulate API call
+                await new Promise(resolve => setTimeout(resolve, 1500));
+                
+                // Success handling
+                showAlert('success');
+                setTimeout(() => {
+                    window.location.href = 'account.html';
+                }, 2000);
+            } catch (error) {
+                showAlert('error', 'Registration failed. Please try again.');
+            } finally {
+                showLoading(false);
+            }
+        }
+    });
+
+    // MAIN VALIDATION FUNCTION (now contains terms check)
+    function validateForm() {
+        // Check terms agreement first
+        if (!document.getElementById('terms').checked) {
+            const error = form.querySelector('[data-error="terms"]');
+            error.textContent = 'You must accept the terms';
+            error.style.display = 'block';
+            return false;
+        }
+
+        // Validate all required fields
+        let isValid = true;
+        Array.from(form.elements).forEach(field => {
+            if(field.required && !validateField(field)) isValid = false;
+        });
+
+        // Final check for password match
+        return isValid && validatePasswordMatch();
     }
 
-    // Store the form data in localStorage
-    localStorage.setItem('firstName', firstName);
-    localStorage.setItem('lastName', lastName);
-    localStorage.setItem('email', email);
-    localStorage.setItem('mobileDigit', mobileDigit);
-    localStorage.setItem('dateOfBirth', dateOfBirth);
-    localStorage.setItem('password', password);
+    // FIELD VALIDATION FUNCTIONS
+    function validateField(field) {
+        const error = form.querySelector(`[data-error="${field.id}"]`);
+        if(!field.checkValidity()) {
+            showError(field, error);
+            return false;
+        }
+        clearError(error);
+        return true;
+    }
 
-    // Redirect to account page
-    window.location.href = 'account.html';
-  });
-</script>
+    function validatePasswordMatch() {
+        const error = form.querySelector('[data-error="confirmPassword"]');
+        if(password.value !== confirmPassword.value) {
+            error.textContent = 'Passwords do not match';
+            error.style.display = 'block';
+            return false;
+        }
+        clearError(error);
+        return true;
+    }
+
+    // HELPER FUNCTIONS
+    function showError(field, errorElement) {
+        field.setCustomValidity('');
+        if(field.validity.valueMissing) {
+            errorElement.textContent = `${field.labels[0].textContent} is required`;
+        } else if(field.validity.typeMismatch) {
+            errorElement.textContent = `Invalid ${field.type === 'email' ? 'email address' : 'input'}`;
+        }
+        errorElement.style.display = 'block';
+    }
+
+    function clearError(errorElement) {
+        errorElement.textContent = '';
+        errorElement.style.display = 'none';
+    }
+
+    function showAlert(type, message) {
+        const success = document.querySelector('.alert-success');
+        const error = document.querySelector('.alert-error');
+        
+        if(type === 'success') {
+            success.style.display = 'block';
+            error.style.display = 'none';
+        } else {
+            error.textContent = message;
+            error.style.display = 'block';
+            success.style.display = 'none';
+        }
+    }
+
+    function showLoading(loading) {
+        const button = form.querySelector('button');
+        button.disabled = loading;
+        button.innerHTML = loading ? 
+            '<div class="loader"></div> Processing...' : 
+            'Create Account';
+    }
+});
+  </script>
 </body>
 </html>
