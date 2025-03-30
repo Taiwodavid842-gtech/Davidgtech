@@ -1,545 +1,424 @@
-
-    <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>Home</title>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-  <style>
-*{
-          box-sizing: border-box;
-          margin:0;
-          padding:0;
-      }
-      
-   body{
-  font-family: Arial, sans-serif;
-  margin: 0;
-  padding: 0;
-  top:0;
-  left:0;
-  width:100%;
-  Z-index: 1000;
-}
-header{
-  padding: 1 rem;
-  text-align:center;
-  Position: fixed;
-  background-color: ;
-  color:green;
-    padding-bottom: 80px;
-    Width:100%;
-    Margin-bottom: 24px;
-}
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BITCHART Social</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary-color: #2ecc71;
+            --secondary-color: #27ae60;
+            --accent-color: #e74c3c;
+            --text-color: #2c3e50;
+            --background-color: #f5f6fa;
+        }
 
-header nav ul{
-   list-style: none;
-   margin:0;
-   padding:20px;
-   display: flex;
-   Justify-content: space-between;   
-   Background-color: #ccc;  
-                 
-   } 
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
 
-header nav ul li{
-    margin-right:80px;
-   } 
-   
-   header nav a{
-       color: green;
-       text-decoration: none;
-       transition: color 0.2s ease;
-   }
-   
-   header nav a:hover{
-   color:#ccc;
-   }
-  
-  .user-Profile{
-      max-width:400px;
-      margin: 10px;
-      padding: 20px;
-      background-color:#fff;
-      border: 1px solid #ddd;
-      box-shadow: 0 0 10px rgba(0,0,0,0.1);
-      position : relative;  
-      top:50%;
-      left: 50%;
-      Width:100%;
-  }
-    #profile-picture{
-    Padding:9px;
-      height: 70ox;
-      width: 70px;
-      border-radius:50%;
-      display: block;
-      margin:auto;
-        Position:relative;
-    } 
+        body {
+            font-family: 'Segoe UI', system-ui, sans-serif;
+            background-color: var(--background-color);
+            padding-top: 70px;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        header {
+            background: white;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 1000;
+            padding: 1rem;
+        }
+
+        nav ul {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin: 0 auto;
+            padding: 0;
+        }
+
+        nav li {
+            list-style: none;
+        }
+
+        nav a {
+            color: var(--text-color);
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        main {
+            max-width: 600px;
+            margin: 2rem auto;
+            padding: 1rem;
+            flex: 1;
+            width: 100%;
+        }
+
+        .profile-header {
+            background: white;
+            padding: 1.5rem;
+            border-radius: 15px;
+            margin-bottom: 1rem;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            display: flex;
+            align-items: center;
+            gap: 1.5rem;
+        }
+
+        .profile-info {
+            flex-grow: 1;
+        }
+
+        .post-author-img {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            object-fit: cover;
+        }
+
+        .stories-container {
+            display: flex;
+            gap: 1rem;
+            overflow-x: auto;
+            padding: 1rem 0;
+            margin-bottom: 1.5rem;
+        }
+
+        .story-item {
+            flex: 0 0 80px;
+            height: 80px;
+            border-radius: 50%;
+            position: relative;
+            cursor: pointer;
+            background: #f0f0f0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .story-item img {
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            object-fit: cover;
+        }
+
+        .add-story {
+            border: 2px dashed var(--primary-color);
+        }
+
+        .story-username {
+            position: absolute;
+            bottom: -20px;
+            width: 100%;
+            text-align: center;
+            font-size: 0.8rem;
+            color: var(--text-color);
+        }
+
+        .create-post {
+            background: white;
+            border-radius: 15px;
+            margin-bottom: 2rem;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            padding: 1.5rem;
+        }
+
+        .post-input {
+            width: 100%;
+            padding: 1rem;
+            border: 2px solid #eee;
+            border-radius: 10px;
+            resize: vertical;
+            min-height: 100px;
+            margin-bottom: 1rem;
+        }
+
+        .post-button {
+            background: var(--primary-color);
+            color: white;
+            border: none;
+            padding: 0.8rem 2rem;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background 0.3s ease;
+        }
+
+        .post-button:hover {
+            background: var(--secondary-color);
+        }
+
+        /* Add remaining styles from previous answer */
+         /* Add these styles */
+        .post-card {
+            background: white;
+            border-radius: 15px;
+            margin-bottom: 2rem;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            padding: 1.5rem;
+        }
+
+        .post-actions {
+            display: flex;
+            gap: 1rem;
+            align-items: center;
+            padding-top: 1rem;
+            border-top: 1px solid #eee;
+        }
+
+        .action-btn {
+            background: none;
+            border: none;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: #666;
+            transition: all 0.3s ease;
+            padding: 0.5rem;
+        }
+
+        .action-btn:hover {
+            color: var(--primary-color);
+        }
+
+        .liked {
+            color: var(--accent-color) !important;
+        }
+
+        footer {
+            background: var(--text-color);
+            color: white;
+            padding: 2rem 1rem;
+            margin-top: auto;
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+        }
+
+        .footer-section h4 {
+            margin-bottom: 1rem;
+            color: var(--primary-color);
+        }
+
+        .footer-links {
+            list-style: none;
+            padding: 0;
+        }
+
+        .footer-links li {
+            margin-bottom: 0.5rem;
+        }
+
+        .footer-links a {
+            color: white;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .footer-links a:hover {
+            color: var(--primary-color);
+        }
+
+        .social-links {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+
+        .social-links a {
+            color: white;
+            font-size: 1.5rem;
+        }
     
-    #text{
-        margin-left:;
-        padding-top: 4px;
-        text-align:center ;
-        Position: relative;
-    }
-    
-   .userprofile p{
-    text-align:center;
-     font-size:18px;
-     Position: relative;
-     Width:100%
-   }
-   #username{
-       font-weight:bold;
-       color:green;
-       
-       margin-left:17px;
-       
-   }
-   
-   #textarea-post-button{
-      display:inline;
-      margin-bottom:0;
-       
-   }
-   
-   .story-container{
-       display: flex;
-       gap: 10px;
-       scrollbar-width:none;
-       
-       overflow-X:auto;
-   }
-   
- 
- .story-container::-webkit-scrollbar {
-     display: none;
-    
- }
-.story-image{
-    width:150px;
-    height:150px;
-    border: 2px dashed #ccc;
-    border-radius: 10px;
-    display: flex;
-    Justify-content: center;
-    align-items:center ;
-    font-size:13px;
-    color: #666;
-    cursor:pointer;
-}
-.story-image.empty{
-    background-color: #f0f0f0;
-}
-.story-image:not(.empty) {
-    border:none;
-    background-size:cover;
-    background-position: center;
-}
-
-
-
-
-.post-container {
-  background-color: ;
-  padding: 20px;
-  border-radius: 10px;
-  box-shadow: 0 0 10px rgba(0,0,0,0.1);
-}
-
-.post-textarea {
-  width: 100%;
-  padding: 10px;
-  font-size: 16px;
-  border: 1px solid #ccc;
-  border-radius: 10px;
-}
-
-.post-button {
-  background-color: #4CAF50;
-  color: #fff;
-  border: none;
-  padding: 10px 20px;
-  font-size: 16px;
-  cursor: pointer;
-  border-radius: 10px;
-}
-
-.post-button:hover {
-  background-color: #3e8e41;
-}
-
-.post-list {
-  margin-top: ;
-}
-
-.post {
-  background-color:#f0f0f0 ;
-  padding: 10px;
-  border-bottom: 1px solid #ccc;
-  Margin-top:5px;
-}
-
-.post-text {
-  font-size: 18px;
-  color: #333;
-  margin: 50px;
-  text-align:left;
-  background-color: ;
-}
-
-.post-actions {
-  display: flex ;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 6px;
-}
-
-.like-button{
-  background-color: #4CAF50;
-  color: #fff;
-  border: none;
-  padding: 10px 20px;
-  font-size: 7px;
-  cursor: pointer;
-  border-radius: 10px;
-  Margin-top:5px;
-  Margin-left:6px;
-  
-}
-
-.comment-button {
-  background-color: #4CAF50;
-  color: #fff;
-  border: none;
-  padding: 10px 20px;
-  font-size: 6px;
-  cursor: pointer;
-  border-radius: 10px;
-  Margin-top: ;
-  Margin-left:6px;
-}
-
-
-
-.like-button:hover, .comment-button:hover {
-  background-color: #3e8e41;
-}
-
-.comment-section {
-  margin: 10px;
-}
-
-.comment-textarea {
-  width: 100%;
-  padding: 10px;
-  font-size: 7px;
-  border: 1px solid #ccc;
-  border-radius: 10px;
-}
-
-.post-comment-button {
-  background-color: #4CAF50;
-  color: #fff;
-  border: none;
-  padding: 10px;
-  font-size: 16px;
-  cursor: pointer;
-  border-radius: 10px;
-  Margin-top:10px;
-}
-
-.post-comment-button:hover {
-  background-color: #3e8e41;
-}
-
-.comment-list {
-  margin-top: 20px;
-}
-
-.comment {
-  background-color: #f0f0f0;
-  padding: 10px;
-  border-bottom: 1px solid #ccc;
-  Border-radius:7px;
-}
- 
-
-.footer {
-  background-color: #333;
-  color: #fff;
-  padding: 20px;
-  text-align: center;
-}
-
-.footer-container {
-  max-width: 1200px;
-  margin: 0 auto;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-
-.footer-links ul {
-  list-style: none;
-  margin: 0;
-  padding: 0;
-}
-
-.footer-links li {
-  display: inline-block;
-  margin-right: 20px;
-}
-
-.footer-links a {
-  color: #fff;
-  text-decoration: none;
-}
-
-.footer-social ul {
-  list-style: none;
-  margin: 0;
-  padding: 0;
-}
-
-.footer-social li {
-  display: inline-block;
-  margin-right: 20px;
-}
-
-.footer-social a {
-  color: #fff;
-  text-decoration: none;
-}
-
-.footer-copyright {
-  margin-top: 20px;
-}
-  </style>
+    </style>
 </head>
 <body>
-  <header>
-    <nav>
-      <ul>
-        <li><a href="#Home">Home</a></li>
-        <li><a href="#profile">Profile</a></li>
-        <li><a href="#setting">Settings</a></li>
-      </ul>
-    </nav>
-  </header>
-  <br><br><br>
-  <main>
-      <section id="#profile"> 
-    <div style="background-color: #f0f0f0 "; "padding:0" class="user-profile">
-      <img id="profile-picture" src="" alt="profile picture">
-      <p id="text"><b></b><span id="username"></span></p>
-      <p style="text-align:center" id="active">Active</p>
-      <p style="text-align:center" id="bitname">@Bitchart</p><br>
-    
-    </div></section>
-   
-    
-    <section style="background-color:#ddd; padding-bottom:3px" id="#Home"> 
-        <h3 style="text-align: left; padding :7px; color: green; background-color: "><i>Status box</i></h3>
-  <div class="story-container">  
-      <div class="story-image empty ">
-          <span>Tap to add image</span>
-      </div>
-      <div class="story-image empty">
-          <span>Tap to add image</span>
-      </div>
-      <div class="story-image empty">
-          <span>Tap to add image</span>
-      </div>
-   <div class="story-image empty">
-          <span>Tap to add image</span>
-      </div>
-  <div class="story-image empty">
-          <span>Tap to add image</span>
-   <!--    </div>
-      <div class="story-image empty">
-          <span>Tap to add image</span>
-      </div><!--  -->
-  </div>
-  </section>
-  <br><br>
-  <section>
-  <div class="post-container">
-    <textarea class="post-textarea" placeholder="Write a post..."></textarea>
-    <button class="post-button">Post</button>
-    <div class="post-list">
-      <!-- posts will be listed here -->
-    </div>
-  </div>
-</section>
-  <div class="footer-copyright">
-        <p>&copy; 2023 Bitchart. All rights reserved.</p>
-      </div>
-    </div>
-  </footer>
-    <script>
-  const username = localStorage.getItem('username');
-  const profilePicture = document.getElementById('profile-picture');
-  const storedProfilePictureSrc = localStorage.getItem('profilePicture');
+    <header>
+        <nav>
+            <ul>
+                <li><a href="#"><i class="fas fa-home"></i>Home</a></li>
+                <li><a href="#"><i class="fas fa-user"></i>Profile</a></li>
+                <li><a href="#"><i class="fas fa-bell"></i>Notifications</a></li>
+            </ul>
+        </nav>
+    </header>
 
-  profilePicture.src = storedProfilePictureSrc;
-  document.getElementById('username').innerHTML = username;
-
-  // Get username from local storage
-const firstName = localStorage.getItem('firstName');
-const lastName = localStorage.getItem('lastName');
-
-if (firstName && lastName) {
-  document.getElementById("username").innerHTML = `${firstName} ${lastName}`;
-} else {
-  console.error('Username not found in local storage');
-}
-  
-  
-  
-  
-  
-  
-  const imageData = localStorage.getItem('imageData');
-
-if (imageData) {
-  const storyImages = document.querySelectorAll('.story-image');
-  storyImages.forEach((image) => {
-    image.style.backgroundImage = `url(${imageData})`;
-    image.classList.remove('empty');
-  });
-}
-  
-  
-  
- 
-  
-
-const storyImages = document.querySelectorAll('.story-image');
-const storyContainer = document.querySelector('.story-container');
-
-storyImages.forEach((image) => {
-  image.addEventListener('click', () => {
-    const fileInput = document.createElement('input');
-    fileInput.type = 'file';
-    fileInput.accept = 'image/*';
-    fileInput.onchange = (e) => {
-      const file = e.target.files[0];
-      const reader = new FileReader();
-      reader.onload = (event) => {
-        image.style.backgroundImage = `url(${event.target.result})`;
-        image.classList.remove('empty');
-      };
-      reader.readAsDataURL(file);
-    };
-    fileInput.click();
-  });
-});
-
-// Add event listener to scroll through images
-storyContainer.addEventListener('wheel', (e) => {
-  e.preventDefault();
-  storyContainer.scrollLeft += e.deltaY;
-});
-
-storyContainer.addEventListener('scroll', () => {
-  const scrollLeft = storyContainer.scrollLeft;
-  const scrollWidth = storyContainer.scrollWidth;
-  const clientWidth = storyContainer.clientWidth;
-
-  if (scrollLeft + clientWidth >= scrollWidth) {
-    // Add new image divs when scrolled to the end
-    const newImage = document.createElement('div');
-    newImage.classList.add('story-image', 'empty');
-    newImage.innerHTML = '<span>Tap to add image</span>';
-    storyContainer.appendChild(newImage);
-
-    // Add event listener to new image div
-    newImage.addEventListener('click', () => {
-      const fileInput = document.createElement('input');
-      fileInput.type = 'file';
-      fileInput.accept = 'image/*';
-      fileInput.onchange = (e) => {
-        const file = e.target.files[0];
-        const reader = new FileReader();
-        reader.onload = (event) => {
-          newImage.style.backgroundImage = `url(${event.target.result})`;
-          newImage.classList.remove('empty');
-        };
-        reader.readAsDataURL(file);
-      };
-      fileInput.click();
-    });
-  }
-});
-
-
-
-  
-const postTextarea = document.querySelector('.post-textarea');
-const postButton = document.querySelector('.post-button');
-const postList = document.querySelector('.post-list');
-
-postButton.addEventListener('click', () => {
-  const postText = postTextarea.value;
-  if (postText !== '') {
-    const postHtml = `
-      <div class="post">
-        <p class="post-text">${postText}</p>
-       </div> 
-       <div class="post-actions">
-          <button class="like-button"><i class="fa fa-thumbs-up" aria-hidden="true"></i> Like (<span class="like-count">0</span>)</button></div>
-          <button class="comment-button">Comment (<span class="comment-count">0</span>)</button>
-          <div class="comment-section">
-            <textarea class="comment-textarea" placeholder="Write a comment..."></textarea>
-            <button class="post-comment-button">Post Comment</button>
-            <div class="comment-list">
-              <!-- comments will be listed here -->
-          
-          </div>
+    <main>
+        <div class="profile-header">
+            <img id="profile-picture" src="" alt="Profile Picture" class="post-author-img">
+            <div class="profile-info">
+                <h3 id="username"></h3>
+                <p class="text-muted">@bitchart</p>
+            </div>
         </div>
-      
-    `;
-    postList.insertAdjacentHTML('beforeend', postHtml);
 
-    const likeButtons = postList.querySelectorAll('.like-button');
-    const commentButtons = postList.querySelectorAll('.comment-button');
+        <div class="stories-container">
+            <div class="story-item add-story" id="addStory">
+                <i class="fas fa-plus"></i>
+                <span class="story-username">Your story</span>
+            </div>
+            <div class="story-item">
+                <img src="https://source.unsplash.com/random/100x100" alt="Story">
+                <span class="story-username">User1</span>
+            </div>
+            <div class="story-item">
+                <img src="https://source.unsplash.com/random/101x101" alt="Story">
+                <span class="story-username">User2</span>
+            </div>
+        </div>
 
-    likeButtons.forEach((likeButton) => {
-      likeButton.addEventListener('click', () => {
-        const likeCountSpan = likeButton.querySelector('.like-count');
-        const likeCount = parseInt(likeCountSpan.textContent) + 1;
-        likeCountSpan.textContent = likeCount.toString();
-      });
-    });
+        <div class="create-post">
+            <textarea class="post-input" placeholder="What's on your mind?"></textarea>
+            <button class="post-button">Post</button>
+        </div>
 
-    commentButtons.forEach((commentButton) => {
-      commentButton.addEventListener('click', () => {
-        const commentCountSpan = commentButton.querySelector('.comment-count');
-        const commentCount = parseInt(commentCountSpan.textContent) + 1;
-        commentCountSpan.textContent = commentCount.toString();
+        <div class="posts-feed" id="postsFeed">
+            <!-- Posts will be added here -->
+        </div>
+    </main>
 
-        const commentTextarea = commentButton.parentNode.querySelector('.comment-textarea');
-        const postCommentButton = commentButton.parentNode.querySelector('.post-comment-button');
-        const commentList = commentButton.parentNode.querySelector('.comment-list');
+    <footer>
+        <div class="footer-content">
+            <div class="footer-section">
+                <h4>BITCHART</h4>
+                <ul class="footer-links">
+                    <li><a href="#">About Us</a></li>
+                    <li><a href="#">Careers</a></li>
+                    <li><a href="#">Contact</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h4>Resources</h4>
+                <ul class="footer-links">
+                    <li><a href="#">Blog</a></li>
+                    <li><a href="#">Documentation</a></li>
+                    <li><a href="#">Help Center</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h4>Connect</h4>
+                <div class="social-links">
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                    <a href="#"><i class="fab fa-facebook"></i></a>
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                </div>
+            </div>
+        </div>
+    </footer>
 
-        postCommentButton.addEventListener('click', () => {
-          const commentText = commentTextarea.value;
-          if (commentText !== '') {
-            const commentHtml = `<div class="comment">${commentText}</div>`;
-            commentList.insertAdjacentHTML('beforeend', commentHtml);
-            commentTextarea.value = '';
-          }
+    <!-- Previous script content remains the same -->
+</body>
+</html>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // Load profile data
+            const profilePicture = document.getElementById('profile-picture');
+            const usernameElement = document.getElementById('username');
+            
+            // Get user data from localStorage
+            const firstName = localStorage.getItem('firstName') || 'User';
+            const lastName = localStorage.getItem('lastName') || 'Name';
+            const profilePic = localStorage.getItem('profilePicture') || 'https://source.unsplash.com/random/200x200';
+            
+            profilePicture.src = profilePic;
+            usernameElement.textContent = `${firstName} ${lastName}`;
+
+            // Story creation
+            document.getElementById('addStory').addEventListener('click', function() {
+                const input = document.createElement('input');
+                input.type = 'file';
+                input.accept = 'image/*';
+                
+                input.onchange = e => {
+                    const file = e.target.files[0];
+                    if (!file) return;
+
+                    const reader = new FileReader();
+                    reader.onload = event => {
+                        const newStory = document.createElement('div');
+                        newStory.className = 'story-item';
+                        newStory.innerHTML = `
+                            <img src="${event.target.result}" alt="Story">
+                            <span class="story-username">Your story</span>
+                        `;
+                        this.parentNode.insertBefore(newStory, this.nextSibling);
+                    };
+                    reader.readAsDataURL(file);
+                };
+                input.click();
+            });
+
+            // Post functionality
+            const postButton = document.querySelector('.post-button');
+            const postInput = document.querySelector('.post-input');
+            const postsFeed = document.getElementById('postsFeed');
+
+            postButton.addEventListener('click', () => {
+                const content = postInput.value.trim();
+                if (!content) return;
+
+                const postHTML = `
+                    <div class="post-card">
+                        <div class="post-header">
+                            <img class="post-author-img" src="${profilePic}" alt="User">
+                            <div>
+                                <h4>${firstName} ${lastName}</h4>
+                                <p class="text-muted">Just now</p>
+                            </div>
+                        </div>
+                        <p class="post-content">${content}</p>
+                        <div class="post-actions">
+                            <button class="action-btn like-btn">
+                                <i class="fas fa-heart"></i>
+                                <span class="like-count">0</span>
+                            </button>
+                            <button class="action-btn comment-btn">
+                                <i class="fas fa-comment"></i>
+                                <span class="comment-count">0</span>
+                            </button>
+                        </div>
+                    </div>
+                `;
+
+                postsFeed.insertAdjacentHTML('afterbegin', postHTML);
+                postInput.value = '';
+            });
+
+            // Like functionality
+            postsFeed.addEventListener('click', (e) => {
+                if (e.target.closest('.like-btn')) {
+                    const likeBtn = e.target.closest('.like-btn');
+                    const likeCount = likeBtn.querySelector('.like-count');
+                    const icon = likeBtn.querySelector('i');
+                    
+                    icon.classList.toggle('liked');
+                    const currentCount = parseInt(likeCount.textContent);
+                    likeCount.textContent = icon.classList.contains('liked') ? currentCount + 1 : currentCount - 1;
+                }
+            });
         });
-      });
-    });
-
-    postTextarea.value = '';
-  }
-});
-
     </script>
 </body>
 </html>
