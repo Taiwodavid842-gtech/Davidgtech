@@ -2,218 +2,335 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Page title</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profile Dashboard - BITCHART</title>
     <style>
+        :root {
+            --primary-color: #2ecc71;
+            --secondary-color: #27ae60;
+            --background-color: #f8f9fa;
+            --text-color: #2c3e50;
+            --shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
 
-/* Global Styles */
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
 
-body {
-  font-family: Arial, sans-serif;
-  margin: 0;
-  padding: 0;
-  background-color: #f0f0f0;
-}
+        body {
+            font-family: 'Segoe UI', system-ui, sans-serif;
+            background-color: var(--background-color);
+            line-height: 1.6;
+        }
 
-/* Container Styles */
+        .container {
+            max-width: 800px;
+            margin: 2rem auto;
+            padding: 2rem;
+            background: white;
+            border-radius: 15px;
+            box-shadow: var(--shadow);
+            position: relative;
+        }
 
-.container {
-  max-width: 400px;
-  margin: 60px auto;
-  padding: 20px;
-  background-color: #fff;
-  border: 1px solid #ddd;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
-  border-radius: 10px;
-}
+        .success-badge {
+            position: absolute;
+            top: -15px;
+            right: 20px;
+            background: var(--primary-color);
+            color: white;
+            padding: 8px 20px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            box-shadow: var(--shadow);
+        }
 
-/* Responsive Container Styles */
+        .profile-header {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
 
-@media (max-width: 767px) {
-  .container {
-    margin: 20px auto;
-    padding: 10px;
-  }
-}
+        .profile-content {
+            display: grid;
+            grid-template-columns: 1fr 2fr;
+            gap: 2rem;
+        }
 
-@media (max-width: 479px) {
-  .container {
-    margin: 10px auto;
-    padding: 5px;
-  }
-}
+        .user-profile {
+            text-align: center;
+            padding: 1.5rem;
+            background: #f8f9fa;
+            border-radius: 10px;
+        }
 
-/* User Profile Styles */
+        #profile-picture {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 3px solid var(--primary-color);
+            margin-bottom: 1rem;
+            transition: transform 0.3s ease;
+        }
 
-.user-profile {
-  text-align: center;
-}
+        #profile-picture:hover {
+            transform: scale(1.05);
+        }
 
-#profile-picture {
-  width: 100px;
-  height: 100px;
-  border-radius: 50%;
-  object-fit: cover;
-  margin-bottom: 10px;
-}
+        #user-name {
+            font-size: 1.4rem;
+            font-weight: 600;
+            color: var(--text-color);
+            margin-bottom: 0.5rem;
+        }
 
-#user-name {
-  font-weight: bold;
-  color: #333;
-  Margin-top:2px;
-  margin-bottom: 25px;
-  Color: black;
-}
+        .profile-stats {
+            display: flex;
+            justify-content: center;
+            gap: 1.5rem;
+            margin-bottom: 1.5rem;
+        }
 
-/* Form Styles */
+        .stat-item {
+            text-align: center;
+            padding: 1rem;
+            background: white;
+            border-radius: 8px;
+            box-shadow: var(--shadow);
+        }
 
-.form-group {
-  margin-bottom: 20px;
-}
+        .upload-section {
+            position: relative;
+            margin-bottom: 1.5rem;
+        }
 
-label {
-  display: block;
-  margin-bottom: 10px;
-  padding-top: 15px;
-  color: black;
-}
+        .upload-button {
+            background: var(--primary-color);
+            color: white;
+            padding: 0.8rem 1.5rem;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: background 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
 
-input[type="text"],
-input[type="date"],
-input[type="number"],
-input[type="email"],
-input[type="password"] {
-  width: 100%;
-  height: 40px;
-  padding: 3px;
-  border: 1px solid #ccc;
-  border-radius: 5px;
-}
+        .upload-button:hover {
+            background: var(--secondary-color);
+        }
 
-/* Responsive Form Styles */
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1.5rem;
+            margin-top: 2rem;
+        }
 
-@media (max-width: 479px) {
-  input[type="text"],
-  input[type="date"],
-  input[type="number"],
-  input[type="email"],
-  input[type="password"] {
-    height: 30px;
-  }
-}
+        .feature-card {
+            padding: 1.5rem;
+            background: white;
+            border-radius: 10px;
+            box-shadow: var(--shadow);
+            transition: transform 0.3s ease;
+            text-align: center;
+        }
 
-button[type="submit"] {
-  width: 70%;
-  height: 40px;
-  padding: 5px;
-  background-color: white ;
-  Color:green ;
-  border: none;
-  border-radius: 9px;
-  color: white;
-  margin-left: 30px;
-  cursor: pointer;
-}
+        .feature-card:hover {
+            transform: translateY(-5px);
+        }
 
-button[type="submit"]:hover {
-  background-color: #3e8e41;
-}
+        @media (max-width: 768px) {
+            .profile-content {
+                grid-template-columns: 1fr;
+            }
+            
+            .container {
+                margin: 1rem;
+                padding: 1.5rem;
+            }
+        }
 
-#btn{
-    color:green;
-    text-decoration:none;
-}
+        .progress-bar {
+            height: 8px;
+            background: #eee;
+            border-radius: 4px;
+            overflow: hidden;
+            margin: 1rem 0;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: var(--primary-color);
+            width: 75%;
+            transition: width 0.5s ease;
+        }
+
+        .dashboard-btn {
+            width: 100%;
+            padding: 1rem;
+            background: var(--primary-color);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 1.1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: block;
+            text-align: center;
+        }
+
+        .dashboard-btn:hover {
+            background: var(--secondary-color);
+            transform: translateY(-2px);
+        }
     </style>
 </head>
 <body>
-  <div class="container">
-    <h2 style="color:green ">Account Created Successfully!</h2>
-    <div class="user-profile">
-      <img id="profile-picture" src="" alt="Profile Picture" />
-      <p id="user-name"></p>
+    <div class="container">
+        <div class="success-badge">Account Verified ✓</div>
+        
+        <div class="profile-header">
+            <h1 style="color: var(--primary-color)">Welcome to BITCHART!</h1>
+            <p>Your Data Analytics Journey Begins Here</p>
+        </div>
+
+        <div class="profile-content">
+            <div class="user-profile">
+                <img id="profile-picture" src="./default-avatar.jpg" alt="Profile Picture">
+                <h2 id="user-name"></h2>
+                <div class="progress-bar">
+                    <div class="progress-fill"></div>
+                </div>
+                <p>Profile Completion: 75%</p>
+                
+                <div class="upload-section">
+                    <input type="file" id="profileImage" accept="image/*" hidden>
+                    <button class="upload-button" id="upload-button">
+                        <i class="fas fa-camera"></i>
+                        Update Photo
+                    </button>
+                </div>
+            </div>
+
+            <div class="user-details">
+                <div class="profile-stats">
+                    <div class="stat-item">
+                        <h3>Joined</h3>
+                        <p id="join-date"></p>
+                    </div>
+                    <div class="stat-item">
+                        <h3>Analytics</h3>
+                        <p>0 Charts Created</p>
+                    </div>
+                </div>
+
+                <div class="features-grid">
+                    <div class="feature-card">
+                        <i class="fas fa-chart-line fa-2x"></i>
+                        <h3>Data Visualization</h3>
+                        <p>Create interactive charts</p>
+                    </div>
+                    <div class="feature-card">
+                        <i class="fas fa-database fa-2x"></i>
+                        <h3>Data Storage</h3>
+                        <p>Secure cloud storage</p>
+                    </div>
+                    <div class="feature-card">
+                        <i class="fas fa-share-alt fa-2x"></i>
+                        <h3>Collaboration</h3>
+                        <p>Team sharing features</p>
+                    </div>
+                </div>
+
+                <a href="home.html" class="dashboard-btn">
+                    Launch Analytics Dashboard
+                    <i class="fas fa-arrow-right"></i>
+                </a>
+            </div>
+        </div>
     </div>
-    <p style="color:"><b>Welcome</b>,<span id="username" style="color:green"></span></p>
-    <br /><br />
-    <form>
-      <div class="form-group">
-        <label for="profile-pic"><i>Choose/Change Image</i></label>
-        <input type="file" id="profileImage" accept="image/*" style="display: none" />
-        <button id="upload-button" type="button">Upload Image</button>
-        <br /><br />
-        <button id="btn"><a style="color:black; text-decoration:none" href="home.html">Start use</a></button>
-      </div>
-    </form>
-  </div>
 
-  <script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // Load user data
+            const userData = {
+                firstName: localStorage.getItem('firstName') || 'User',
+                lastName: localStorage.getItem('lastName') || 'Name',
+                joinDate: new Date().toLocaleDateString('en-US', {
+                    year: 'numeric',
+                    month: 'long',
+                    day: 'numeric'
+                }),
+                profilePic: localStorage.getItem('profilePicture') || './default-avatar.jpg'
+            };
 
-try {
-  // Retrieve the first name and last name from localStorage
-  const firstName = localStorage.getItem('firstName');
-  const lastName = localStorage.getItem('lastName');
+            // Set user information
+            document.getElementById('user-name').textContent = 
+                `${userData.firstName} ${userData.lastName}`;
+            document.getElementById('join-date').textContent = userData.joinDate;
+            document.getElementById('profile-picture').src = userData.profilePic;
 
-  // Display the full name
-  const usernameElement = document.getElementById('username');
-  if (usernameElement) {
-    usernameElement.textContent = `${firstName} ${lastName}`;
-  } else {
-    console.error('Missing element: #username');
-  }
+            // Image upload handling
+            const profileImageInput = document.getElementById('profileImage');
+            const profilePicture = document.getElementById('profile-picture');
 
-  // Display the full name under the profile picture
-  const userNameElement = document.getElementById('user-name');
-  if (userNameElement) {
-    userNameElement.textContent = `${firstName} ${lastName}`;
-  } else {
-    console.error('Missing element: #user-name');
-  }
+            profileImageInput.addEventListener('change', (e) => {
+                const file = e.target.files[0];
+                if (file && file.type.startsWith('image/')) {
+                    const reader = new FileReader();
+                    
+                    reader.onload = (event) => {
+                        profilePicture.src = event.target.result;
+                        localStorage.setItem('profilePicture', event.target.result);
+                    };
+                    
+                    reader.onerror = (error) => {
+                        console.error('Error reading file:', error);
+                        alert('Error uploading image. Please try again.');
+                    };
+                    
+                    reader.readAsDataURL(file);
+                } else {
+                    alert('Please select a valid image file.');
+                }
+            });
 
-  // Display profile picture
-  const profilePictureElement = document.getElementById('profile-picture');
-  if (profilePictureElement) {
-    const storedProfilePicture = localStorage.getItem('profilePicture');
-    if (storedProfilePicture) {
-      profilePictureElement.src = storedProfilePicture;
-    }
-  } else {
-    console.error('Missing element: #profile-picture');
-  }
+            document.getElementById('upload-button').addEventListener('click', () => {
+                profileImageInput.click();
+            });
 
-  const profileImageFileInput = document.getElementById('profileImage');
-  if (profileImageFileInput) {
-    profileImageFileInput.addEventListener('change', () => {
-      const reader = new FileReader();
+            // Add hover effect to feature 
+            document.querySelectorAll('.feature-card').forEach(card => {
+                card.addEventListener('mouseenter', () => {
+                    card.style.boxShadow = '0 8px 15px rgba(0, 0, 0, 0.2)';
+                });
+                
+                card.addEventListener('mouseleave', () => {
+                    card.style.boxShadow = 'var(--shadow)';
+                });
+            });
+        });
 
-reader.addEventListener('load', () => {
-  if (reader.result && reader.result.startsWith('data:image/')) {
-    profilePictureElement.src = reader.result;
-    localStorage.setItem('profilePicture', reader.result);
-  } else {
-    console.error('Invalid image URL');
-  }
-});
+        // Add visual feedback for image upload
+        document.addEventListener('dragover', (e) => {
+            e.preventDefault();
+            document.body.classList.add('dragover');
+        });
 
-reader.addEventListener('error', () => {
-  console.error('Error reading file');
-});
+        document.addEventListener('dragleave', (e) => {
+            e.preventDefault();
+            document.body.classList.remove('dragover');
+        });
 
-reader.readAsDataURL(profileImageFileInput.files[0]);
-});
-} else {
-console.error('Missing element: #profileImage');
-}
-
-const uploadButtonElement = document.getElementById('upload-button');
-if (uploadButtonElement) {
-uploadButtonElement.addEventListener('click', () => {
-profileImageFileInput.click();
-});
-} else {
-console.error('Missing element: #upload-button');
-}
-} catch (error) {
-console.error('Error:', error);
-}
-
-</script>
+        document.addEventListener('drop', (e) => {
+            e.preventDefault();
+            document.body.classList.remove('dragover');
+        });
+    </script>
 </body>
 </html>
