@@ -255,19 +255,29 @@
         </div>
     </div>
 
+    
+        
     <script>
         document.addEventListener('DOMContentLoaded', () => {
-            // Load user data
-            const userData = {
-                firstName: localStorage.getItem('firstName') || 'User',
-                lastName: localStorage.getItem('lastName') || 'Name',
-                joinDate: new Date().toLocaleDateString('en-US', {
-                    year: 'numeric',
-                    month: 'long',
-                    day: 'numeric'
-                }),
-                profilePic: localStorage.getItem('profilePicture') || './default-avatar.jpg'
-            };
+    // Load user data
+    const userData = JSON.parse(localStorage.getItem('userData')) || {
+        firstName: 'User',
+        lastName: 'Name',
+        joinDate: new Date().toLocaleDateString('en-US', {
+            year: 'numeric',
+            month: 'long',
+            day: 'numeric'
+        }),
+        profilePic: localStorage.getItem('profilePicture') || './default-avatar.jpg'
+    };
+
+    // Set user information
+    document.getElementById('user-name').textContent = 
+        `${userData.firstName} ${userData.lastName}`;
+    document.getElementById('join-date').textContent = userData.joinDate;
+    document.getElementById('profile-picture').src = userData.profilePic;
+
+    // Rest of your code...
 
             // Set user information
             document.getElementById('user-name').textContent = 
