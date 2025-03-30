@@ -189,7 +189,9 @@
 
       <div class="form-group">
         <label for="dob">Date of Birth</label>
-        <input type="date" id="dob" max="<?= date('Y-m-d', strtotime('-13 years')) ?>" required>
+        <!-- Remove PHP code from date input -->
+<input type="date" id="dob" required>
+      
         <div class="error-message" data-error="dob"></div>
       </div>
 
@@ -206,16 +208,14 @@
         <div class="error-message" data-error="confirmPassword"></div>
       </div>
 
-      <div class="terms-label">
-        <input type="checkbox" id="terms" required>
-        <label for="terms">I agree to the Terms & Privacy Policy</label>
-      </div>
-      
-      
-  <!-- Add this error element -->
-  <div class="error-message" data-error="terms"></div>
+      <!-- Fix terms section structure -->
+<div class="terms-label">
+    <input type="checkbox" id="terms" required>
+    <label for="terms">I agree to the Terms & Privacy Policy</label>
+    <div class="error-message" data-error="terms"></div>
 </div>
-      
+
+
 
       <button type="submit">Create Account</button>
 
@@ -269,14 +269,32 @@
         if(validateForm()) {
             try {
                 showLoading(true);
+                
+                // Store user data
+                const userData = {
+                    firstName: document.getElementById('first-name').value.trim(),
+                    lastName: document.getElementById('last-name').value.trim(),
+                    email: document.getElementById('email').value.trim(),
+                    mobile: document.getElementById('mobile').value.trim(),
+                    dob: document.getElementById('dob').value,
+                    joinDate: new Date().toLocaleDateString('en-US', {
+                        year: 'numeric',
+                        month: 'long',
+                        day: 'numeric'
+                    })
+                };
+
+                // Set default profile picture
+                localStorage.setItem('profilePicture', './default-avatar.jpg');
+                localStorage.setItem('userData', JSON.stringify(userData));
+
                 // Simulate API call
                 await new Promise(resolve => setTimeout(resolve, 1500));
                 
-                // Success handling
                 showAlert('success');
                 setTimeout(() => {
                     window.location.href = 'account.html';
-                }, 2000);
+                }, 4000);
             } catch (error) {
                 showAlert('error', 'Registration failed. Please try again.');
             } finally {
@@ -285,9 +303,9 @@
         }
     });
 
-    // MAIN VALIDATION FUNCTION (now contains terms check)
+    // Validation functions
     function validateForm() {
-        // Check terms agreement first
+        // Terms check
         if (!document.getElementById('terms').checked) {
             const error = form.querySelector('[data-error="terms"]');
             error.textContent = 'You must accept the terms';
@@ -295,17 +313,16 @@
             return false;
         }
 
-        // Validate all required fields
+        // Field validation
         let isValid = true;
         Array.from(form.elements).forEach(field => {
             if(field.required && !validateField(field)) isValid = false;
         });
 
-        // Final check for password match
+        // Password match check
         return isValid && validatePasswordMatch();
     }
 
-    // FIELD VALIDATION FUNCTIONS
     function validateField(field) {
         const error = form.querySelector(`[data-error="${field.id}"]`);
         if(!field.checkValidity()) {
@@ -327,7 +344,7 @@
         return true;
     }
 
-    // HELPER FUNCTIONS
+    // Helper functions
     function showError(field, errorElement) {
         field.setCustomValidity('');
         if(field.validity.valueMissing) {
