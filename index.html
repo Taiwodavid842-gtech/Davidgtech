@@ -2,202 +2,305 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Page title</title>
-    <link rel="stylesheet" href="style.css">
-     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BITCHART - Login</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
     <style>
-/* Global Styles */
-body {
-  font-family: Arial, sans-serif;
-  margin: 0;
-  padding: 0;
-  background-color: #f0f0f0;
-}
+        /* Improved CSS with Variables and Better Organization */
+        :root {
+            --primary-color: #2ecc71;
+            --secondary-color: #27ae60;
+            --background-color: #f8f9fa;
+            --text-color: #2c3e50;
+        }
 
-/* Desktop Styles */
-@media (min-width: 768px) {
-  .div1 {
-    background-color: green;
-    padding: 20px;
-  }
-  .div2 {
-    border: 1px solid #ddd;
-    border-radius: 10px;
-    padding: 20px;
-    background-color: white;
-    margin: 20px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-  }
-  form {
-    text-align: center;
-  }
-  input[type="text"], input[type="password"] {
-    border-style: 2px solid beige;
-    border-radius: 7px;
-    font-size: 20px;
-    height: 30px;
-    color: black;
-    margin: 10px;
-  }
-  input[type="button"] {
-    border-style: none;
-    border-radius: 7px;
-    font-size: 20px;
-    height: 30px;
-    color: black;
-    background-color: #4CAF50;
-    cursor: pointer;
-  }
-  footer {
-    margin-top: 50px;
-    text-align: center;
-    color: green;
-  }
-}
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
 
-/* Tablet Styles */
-@media (min-width: 480px) and (max-width: 767px) {
-  .div1 {
-    background-color: green;
-    padding: 10px;
-  }
-  .div2 {
-    border: 1px solid #ddd;
-    border-radius: 10px;
-    padding: 10px;
-    background-color: white;
-    margin: 10px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-  }
-  form {
-    text-align: center;
-  }
-  input[type="text"], input[type="password"] {
-    border-style: 2px solid beige;
-    border-radius: 7px;
-    font-size: 18px;
-    height: 25px;
-    color: black;
-    margin: 5px;
-  }
-  input[type="button"] {
-    border-style: none;
-    border-radius: 7px;
-    font-size: 18px;
-    height: 25px;
-    color: black;
-    background-color: #4CAF50;
-    cursor: pointer;
-  }
-  footer {
-    margin-top: 30px;
-    text-align: center;
-    color: green;
-  }
-}
+        body {
+            font-family: 'Segoe UI', system-ui, sans-serif;
+            background-color: var(--background-color);
+            line-height: 1.6;
+            color: var(--text-color);
+        }
 
-/* Mobile Styles */
-@media (max-width: 479px) {
-  .div1 {
-    background-color: green;
-    padding: 5px;
-  }
-  .div2 {
-    border: 1px solid #ddd;
-    border-radius: 10px;
-    padding: 5px;
-    background-color: white;
-    margin: 5px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-  }
-  form {
-    text-align: center;
-  }
-  input[type="text"], input[type="password"] {
-    border-style: 2px solid beige;
-    border-radius: 7px;
-    font-size: 16px;
-    height: 20px;
-    color: black;
-    margin: 2px;
-  }
-  input[type="button"] {
-    border-style: none;
-    border-radius: 7px;
-    font-size: 16px;
-    height: 20px;
-    color: black;
-    background-color: #4CAF50;
-    cursor: pointer;
-  }
-  footer {
-    margin-top: 20px;
-    text-align: center;
-    color: green;
-  }
-}
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
 
-/* Dialog Box Styles */
-#dialog-box {
-  position: fixed;
-  top: 40%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  background-color: green;
-  padding: 20px;
-  border: 1px solid #ddd;
-  border-radius: 10px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
-  color: white;
-}
+        .auth-card {
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            padding: 2rem;
+            margin: 2rem auto;
+            max-width: 400px;
+        }
 
-#ok-button {
-  background-color: #4CAF50;
-  color: white;
-  padding: 10px 20px;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-}
+        .brand-header {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
 
-#ok-button:hover {
-  background-color: #3e8e41;
-}
+        .brand-logo {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--primary-color);
+            margin-bottom: 1rem;
+        }
 
+        .brand-subheader {
+            font-size: 1.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+        }
+
+        .form-input {
+            width: 100%;
+            padding: 0.8rem;
+            border: 2px solid #e0e0e0;
+            border-radius: 6px;
+            font-size: 1rem;
+            transition: border-color 0.3s ease;
+        }
+
+        .form-input:focus {
+            outline: none;
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 3px rgba(46, 204, 113, 0.2);
+        }
+
+        .password-toggle {
+            position: absolute;
+            right: 10px;
+            top: 50%;
+            transform: translateY(-50%);
+            cursor: pointer;
+            color: #95a5a6;
+        }
+
+        .btn {
+            width: 100%;
+            padding: 0.8rem;
+            border: none;
+            border-radius: 6px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .btn-primary {
+            background-color: var(--primary-color);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background-color: var(--secondary-color);
+        }
+
+        .signup-link {
+            text-align: center;
+            margin-top: 1.5rem;
+        }
+
+        .footer {
+            text-align: center;
+            margin-top: 3rem;
+            color: var(--primary-color);
+            font-weight: 500;
+        }
+
+        /* Dialog Box Improvements */
+        .dialog-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+        }
+
+        .dialog-box {
+            background: white;
+            padding: 2rem;
+            border-radius: 8px;
+            max-width: 400px;
+            text-align: center;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .auth-card {
+                margin: 1rem;
+                padding: 1.5rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .brand-logo {
+                font-size: 2rem;
+            }
+            
+            .brand-subheader {
+                font-size: 1.25rem;
+            }
+        }
     </style>
 </head>
-<body><br>
-    <div class="div1"><div class="div2">
-    <h4 style="text-align: center; margin:40px; color: green; font-size: 18px;"> <span style="color:black">BIT</span>CHART</h4>
-    
-    <h4 style="font-size:25px; text-align: center; color: black "><span style="color:green">W</span>ELCOM<span style="color: green">E</span>
-   <span>  <i style ="color: green; margin-top: 11px"  class="fa fa-user"  aria-hidden="true"></i> </span></h4>
-     <form>
-        <input type="text" placeholder="mobile number or email address" required><br><br>
-        <input type="password" placeholder="password" name="password "required><br><br>   
-        <input type="button" value="login account">
-       <br><br><br>
-       <p>Don't have an<span style="color: green"> Account? </span> , create an account </p>
-    <a href="Registration.html"> <input type="button" value="create an account "></a>
-   
-   </form>
-   </div>
-    
-    <footer style="margin-top:70px; text-align: center; color: green"><b>from<br><i> <span style="font-size: 23px; color:Black">GTech</span></i></b></footer></div>
-    <div id="dialog-box" style="display:none;">
-  <h2>Go straight in creating an account</h2>
-  <button id="ok-button">OK</button>
-</div>
+<body>
+    <div class="container">
+        <div class="auth-card">
+            <div class="brand-header">
+                <div class="brand-logo">BIT<span style="color: var(--text-color)">CHART</span></div>
+                <h2 class="brand-subheader">Welcome Back! <i class="fa-solid fa-user-check"></i></h2>
+            </div>
+
+            <form id="loginForm">
+                <div class="form-group">
+                    <label class="form-label" for="username">Email or Mobile</label>
+                    <input type="text" 
+                           class="form-input" 
+                           id="username" 
+                           name="username"
+                           required
+                           autocomplete="username"
+                           placeholder="Enter email or mobile number">
+                </div>
+
+                <div class="form-group" style="position: relative;">
+                    <label class="form-label" for="password">Password</label>
+                    <input type="password" 
+                           class="form-input" 
+                           id="password" 
+                           name="password"
+                           required
+                           autocomplete="current-password"
+                           placeholder="Enter your password">
+                    <i class="fa-solid fa-eye password-toggle" id="togglePassword"></i>
+                </div>
+
+                <button type="submit" class="btn btn-primary">Sign In</button>
+
+                <div class="signup-link">
+                    New user? <a href="registration.html" style="color: var(--primary-color); text-decoration: none;">Create account</a>
+                </div>
+            </form>
+        </div>
+
+        <footer class="footer">
+            <p>From <strong>GTech</strong></p>
+        </footer>
+    </div>
+
+    <!-- Improved Dialog -->
+    <div class="dialog-overlay" id="dialogOverlay">
+        <div class="dialog-box">
+            <h3>Welcome to BITCHART! 🎉</h3>
+            <p>New users are encouraged to create an account to access all features.</p>
+            <button class="btn btn-primary" id="dialogClose">Get Started</button>
+        </div>
+    </div>
+
     <script>
-        
+        // Enhanced JavaScript
+        document.addEventListener('DOMContentLoaded', () => {
+            // Password Toggle
+            const togglePassword = document.querySelector('#togglePassword');
+            const password = document.querySelector('#password');
+            
+            togglePassword.addEventListener('click', () => {
+                const type = password.getAttribute('type') === 'password' ? 'text' : 'password';
+                password.setAttribute('type', type);
+                togglePassword.classList.toggle('fa-eye-slash');
+            });
 
+            // Dialog Handling
+            const dialogOverlay = document.getElementById('dialogOverlay');
+            const dialogClose = document.getElementById('dialogClose');
 
-document.getElementById("ok-button").addEventListener("click", function() {
-  document.getElementById("dialog-box").style.display = "none";
-});
+            // Show dialog on first visit
+            if(!localStorage.getItem('dialogShown')) {
+                dialogOverlay.style.display = 'flex';
+                localStorage.setItem('dialogShown', 'true');
+            }
 
-document.getElementById("dialog-box").style.display = "block";
+            // Close dialog handlers
+            dialogClose.addEventListener('click', () => {
+                dialogOverlay.style.display = 'none';
+            });
 
+            dialogOverlay.addEventListener('click', (e) => {
+                if(e.target === dialogOverlay) {
+                    dialogOverlay.style.display = 'none';
+                }
+            });
+
+            // Form Validation
+            const form = document.getElementById('loginForm');
+            
+            form.addEventListener('submit', async (e) => {
+                e.preventDefault();
+                
+                const formData = {
+                    username: form.username.value.trim(),
+                    password: form.password.value.trim()
+                };
+
+                // Simple validation
+                if(!formData.username || !formData.password) {
+                    showError('Please fill in all fields');
+                    return;
+                }
+
+                // Simulated API call
+                try {
+                    // Show loading state
+                    form.querySelector('button').disabled = true;
+                    
+                    // Replace with actual API call
+                    await new Promise(resolve => setTimeout(resolve, 1000));
+                    
+                    // Simulated success
+                    window.location.href = 'dashboard.html';
+                } catch (error) {
+                    showError('Invalid credentials. Please try again.');
+                } finally {
+                    form.querySelector('button').disabled = false;
+                }
+            });
+
+            function showError(message) {
+                const errorDiv = document.createElement('div');
+                errorDiv.className = 'error-message';
+                errorDiv.style.color = '#e74c3c';
+                errorDiv.style.marginTop = '1rem';
+                errorDiv.textContent = message;
+                
+                const existingError = form.querySelector('.error-message');
+                if(existingError) existingError.remove();
+                
+                form.appendChild(errorDiv);
+            }
+        });
     </script>
 </body>
 </html>
