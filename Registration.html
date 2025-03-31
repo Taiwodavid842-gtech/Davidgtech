@@ -158,6 +158,116 @@
     }
   </style>
 </head>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Create Account - BITCHART</title>
+  <style>
+    /* Add your registration form styles here */
+    body {
+      font-family: 'Segoe UI', system-ui, sans-serif;
+      background-color: #f8f9fa;
+      line-height: 1.6;
+      padding: 20px;
+    }
+    .container {
+      max-width: 600px;
+      margin: 0 auto;
+      background: white;
+      padding: 2rem;
+      border-radius: 10px;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
+    h2 {
+      color: #2ecc71;
+      text-align: center;
+      margin-bottom: 1.5rem;
+    }
+    .form-group {
+      margin-bottom: 1.5rem;
+    }
+    label {
+      display: block;
+      margin-bottom: 0.5rem;
+      font-weight: 500;
+    }
+    input[type="text"],
+    input[type="email"],
+    input[type="tel"],
+    input[type="date"],
+    input[type="password"] {
+      width: 100%;
+      padding: 0.8rem;
+      border: 1px solid #ddd;
+      border-radius: 4px;
+      font-size: 1rem;
+    }
+    .error-message {
+      color: #e74c3c;
+      font-size: 0.8rem;
+      margin-top: 0.3rem;
+      display: none;
+    }
+    button[type="submit"] {
+      width: 100%;
+      padding: 1rem;
+      background-color: #2ecc71;
+      color: white;
+      border: none;
+      border-radius: 4px;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: background-color 0.3s;
+    }
+    button[type="submit"]:hover {
+      background-color: #27ae60;
+    }
+    .terms-label {
+      display: flex;
+      align-items: center;
+      margin-bottom: 1.5rem;
+    }
+    .terms-label input {
+      margin-right: 0.5rem;
+    }
+    .alert {
+      padding: 1rem;
+      border-radius: 4px;
+      margin-bottom: 1rem;
+      display: none;
+    }
+    .alert-success {
+      background-color: #d4edda;
+      color: #155724;
+    }
+    .alert-error {
+      background-color: #f8d7da;
+      color: #721c24;
+    }
+    .password-strength {
+      height: 4px;
+      background: #eee;
+      margin-top: 0.5rem;
+      border-radius: 2px;
+      overflow: hidden;
+    }
+    .loader {
+    display: inline-block;
+    width: 12px;
+    height: 12px;
+    border: 2px solid #fff;
+    border-radius: 50%;
+    border-top-color: transparent;
+    animation: spin 0.8s linear infinite;
+}
+
+@keyframes spin {
+    to { transform: rotate(360deg); }
+}
+  </style>
+</head>
 <body>
   <div class="container">
     <h2>Create Secure Account</h2>
@@ -165,13 +275,13 @@
     <form id="register-form" novalidate>
       <div class="form-group">
         <label for="first-name">First Name</label>
-        <input type="text" id="first-name" autocomplete="given-name" required>
+        <input type="text" id="first-name" autocomplete="given-name" required minlength="2" maxlength="50">
         <div class="error-message" data-error="firstName"></div>
       </div>
 
       <div class="form-group">
         <label for="last-name">Last Name</label>
-        <input type="text" id="last-name" autocomplete="family-name" required>
+        <input type="text" id="last-name" autocomplete="family-name" required minlength="2" maxlength="50">
         <div class="error-message" data-error="lastName"></div>
       </div>
 
@@ -189,15 +299,13 @@
 
       <div class="form-group">
         <label for="dob">Date of Birth</label>
-        <!-- Remove PHP code from date input -->
-<input type="date" id="dob" required>
-      
+        <input type="date" id="dob" required>
         <div class="error-message" data-error="dob"></div>
       </div>
 
       <div class="form-group">
         <label for="password">Password</label>
-        <input type="password" id="password" autocomplete="new-password" required>
+        <input type="password" id="password" autocomplete="new-password" required minlength="8">
         <div class="password-strength"></div>
         <div class="error-message" data-error="password"></div>
       </div>
@@ -208,14 +316,11 @@
         <div class="error-message" data-error="confirmPassword"></div>
       </div>
 
-      <!-- Fix terms section structure -->
-<div class="terms-label">
-    <input type="checkbox" id="terms" required>
-    <label for="terms">I agree to the Terms & Privacy Policy</label>
-    <div class="error-message" data-error="terms"></div>
-</div>
-
-
+      <div class="terms-label">
+        <input type="checkbox" id="terms" required>
+        <label for="terms">I agree to the Terms & Privacy Policy</label>
+        <div class="error-message" data-error="terms"></div>
+      </div>
 
       <button type="submit">Create Account</button>
 
@@ -224,13 +329,13 @@
     </form>
   </div>
 
-  <script>
-      document.addEventListener('DOMContentLoaded', () => {
+  <script>  document.addEventListener('DOMContentLoaded', () => {
     const form = document.getElementById('register-form');
     const password = document.getElementById('password');
     const confirmPassword = document.getElementById('confirm-password');
     const strengthBar = document.querySelector('.password-strength');
 
+    // Remove the duplicate DOMContentLoaded listener
     // Set max date for date of birth (13 years minimum age)
     document.getElementById('dob').max = new Date(
         new Date().setFullYear(new Date().getFullYear() - 13)
@@ -246,12 +351,13 @@
     // Password strength calculator
     function checkPasswordStrength() {
         const strength = calculateStrength(password.value);
-        strengthBar.style.setProperty('--strength', `${strength.score * 25}%`);
-        strengthBar.style.setProperty('--strength-color', strength.color);
+        strengthBar.style.width = `${strength.score * 25}%`;
+        strengthBar.style.backgroundColor = strength.color;
     }
 
     function calculateStrength(pass) {
         let score = 0;
+        // Add more robust password checks
         if (pass.length >= 8) score++;
         if (pass.match(/[A-Z]/)) score++;
         if (pass.match(/[0-9]/)) score++;
@@ -272,44 +378,57 @@
                 
                 // Store user data
                 const userData = {
-                    firstName: document.getElementById('first-name').value.trim(),
-                    lastName: document.getElementById('last-name').value.trim(),
-                    email: document.getElementById('email').value.trim(),
-                    mobile: document.getElementById('mobile').value.trim(),
+                    firstName: sanitizeInput(document.getElementById('first-name').value.trim()),
+                    lastName: sanitizeInput(document.getElementById('last-name').value.trim()),
+                    email: sanitizeInput(document.getElementById('email').value.trim()),
+                    mobile: sanitizeInput(document.getElementById('mobile').value.trim()),
                     dob: document.getElementById('dob').value,
-                    joinDate: new Date().toLocaleDateString('en-US', {
-                        year: 'numeric',
-                        month: 'long',
-                        day: 'numeric'
-                    })
+                    joinDate: new Date().toISOString(),
+                    verified: false
                 };
 
                 // Set default profile picture
                 localStorage.setItem('profilePicture', './default-avatar.jpg');
                 localStorage.setItem('userData', JSON.stringify(userData));
 
-                // Simulate API call
-                await new Promise(resolve => setTimeout(resolve, 1500));
+                // Simulate API call with error handling
+                await simulateAPICall();
                 
                 showAlert('success');
                 setTimeout(() => {
-                    window.location.href = 'account.html';
-                }, 4000);
+                    window.location.href = 'account.html?newUser=true';
+                }, 3000);
             } catch (error) {
-                showAlert('error', 'Registration failed. Please try again.');
+                showAlert('error', error.message || 'Registration failed. Please try again.');
             } finally {
                 showLoading(false);
             }
         }
     });
 
+    // Add input sanitization
+    function sanitizeInput(input) {
+        const div = document.createElement('div');
+        div.textContent = input;
+        return div.innerHTML;
+    }
+
+    // Simulate API call with possible failure
+    async function simulateAPICall() {
+        return new Promise((resolve, reject) => {
+            setTimeout(() => {
+                // Simulate 10% chance of failure
+                if(Math.random() < 0.9) resolve();
+                else reject(new Error('Server connection failed'));
+            }, 1500);
+        });
+    }
+
     // Validation functions
     function validateForm() {
         // Terms check
         if (!document.getElementById('terms').checked) {
-            const error = form.querySelector('[data-error="terms"]');
-            error.textContent = 'You must accept the terms';
-            error.style.display = 'block';
+            showTermsError();
             return false;
         }
 
@@ -344,6 +463,12 @@
         return true;
     }
 
+    function showTermsError() {
+        const error = form.querySelector('[data-error="terms"]');
+        error.textContent = 'You must accept the terms';
+        error.style.display = 'block';
+    }
+
     // Helper functions
     function showError(field, errorElement) {
         field.setCustomValidity('');
@@ -351,6 +476,8 @@
             errorElement.textContent = `${field.labels[0].textContent} is required`;
         } else if(field.validity.typeMismatch) {
             errorElement.textContent = `Invalid ${field.type === 'email' ? 'email address' : 'input'}`;
+        } else if(field.validity.patternMismatch) {
+            errorElement.textContent = 'Invalid phone number format';
         }
         errorElement.style.display = 'block';
     }
