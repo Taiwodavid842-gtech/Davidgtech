@@ -196,7 +196,7 @@
         
         <div class="profile-header">
             <h1 style="color: var(--primary-color)">Welcome to BITCHART!</h1>
-            <p>Your Data Analytics Journey Begins Here</p>
+            <p>enjoy your stay on the webapp</p>
         </div>
 
         <div class="profile-content">
@@ -224,7 +224,7 @@
                         <p id="join-date"></p>
                     </div>
                     <div class="stat-item">
-                        <h3>Analytics</h3>
+                        <h3>Records</h3>
                         <p>0 Charts Created</p>
                     </div>
                 </div>
@@ -232,13 +232,13 @@
                 <div class="features-grid">
                     <div class="feature-card">
                         <i class="fas fa-chart-line fa-2x"></i>
-                        <h3>Data Visualization</h3>
+                        <h3>Your data informations </h3>
                         <p>Create interactive charts</p>
                     </div>
                     <div class="feature-card">
                         <i class="fas fa-database fa-2x"></i>
                         <h3>Data Storage</h3>
-                        <p>Secure cloud storage</p>
+                        <p>Secure data storage</p>
                     </div>
                     <div class="feature-card">
                         <i class="fas fa-share-alt fa-2x"></i>
@@ -248,7 +248,7 @@
                 </div>
 
                 <a href="home.html" class="dashboard-btn">
-                    Launch Analytics Dashboard
+                    Enter Dashboard
                     <i class="fas fa-arrow-right"></i>
                 </a>
             </div>
@@ -259,16 +259,18 @@
         
     <script>
         document.addEventListener('DOMContentLoaded', () => {
-    // Load user data
+    // Load user data from localStorage or create default
     const userData = JSON.parse(localStorage.getItem('userData')) || {
         firstName: 'User',
         lastName: 'Name',
+        email: 'user@example.com',
         joinDate: new Date().toLocaleDateString('en-US', {
             year: 'numeric',
             month: 'long',
             day: 'numeric'
         }),
-        profilePic: localStorage.getItem('profilePicture') || './default-avatar.jpg'
+        profilePic: localStorage.getItem('profilePicture') || './default-avatar.jpg',
+        verified: true
     };
 
     // Set user information
@@ -277,70 +279,169 @@
     document.getElementById('join-date').textContent = userData.joinDate;
     document.getElementById('profile-picture').src = userData.profilePic;
 
-    // Rest of your code...
+    // Hide verification badge if account isn't verified
+    if (!userData.verified) {
+        document.querySelector('.success-badge').style.display = 'none';
+    }
 
-            // Set user information
-            document.getElementById('user-name').textContent = 
-                `${userData.firstName} ${userData.lastName}`;
-            document.getElementById('join-date').textContent = userData.joinDate;
-            document.getElementById('profile-picture').src = userData.profilePic;
+    // Image upload handling
+    const profileImageInput = document.getElementById('profileImage');
+    const profilePicture = document.getElementById('profile-picture');
+    const uploadButton = document.getElementById('upload-button');
 
-            // Image upload handling
-            const profileImageInput = document.getElementById('profileImage');
-            const profilePicture = document.getElementById('profile-picture');
-
-            profileImageInput.addEventListener('change', (e) => {
-                const file = e.target.files[0];
-                if (file && file.type.startsWith('image/')) {
-                    const reader = new FileReader();
-                    
-                    reader.onload = (event) => {
-                        profilePicture.src = event.target.result;
-                        localStorage.setItem('profilePicture', event.target.result);
-                    };
-                    
-                    reader.onerror = (error) => {
-                        console.error('Error reading file:', error);
-                        alert('Error uploading image. Please try again.');
-                    };
-                    
-                    reader.readAsDataURL(file);
-                } else {
-                    alert('Please select a valid image file.');
-                }
-            });
-
-            document.getElementById('upload-button').addEventListener('click', () => {
-                profileImageInput.click();
-            });
-
-            // Add hover effect to feature 
-            document.querySelectorAll('.feature-card').forEach(card => {
-                card.addEventListener('mouseenter', () => {
-                    card.style.boxShadow = '0 8px 15px rgba(0, 0, 0, 0.2)';
-                });
+    profileImageInput.addEventListener('change', (e) => {
+        const file = e.target.files[0];
+        if (file && file.type.startsWith('image/')) {
+            const reader = new FileReader();
+            
+            reader.onload = (event) => {
+                profilePicture.src = event.target.result;
+                // Update both localStorage entries
+                localStorage.setItem('profilePicture', event.target.result);
                 
-                card.addEventListener('mouseleave', () => {
-                    card.style.boxShadow = 'var(--shadow)';
-                });
-            });
-        });
+                // Also update the profilePic in userData
+                const updatedUserData = {
+                    ...userData,
+                    profilePic: event.target.result
+                };
+                localStorage.setItem('userData', JSON.stringify(updatedUserData));
+                
+                // Show success feedback
+                uploadButton.innerHTML = '<i class="fas fa-check"></i> Photo Updated!';
+                uploadButton.style.backgroundColor = '#27ae60';
+                
+                // Reset button after 2 seconds
+                setTimeout(() => {
+                    uploadButton.innerHTML = '<i class="fas fa-camera"></i> Update Photo';
+                    uploadButton.style.backgroundColor = '';
+                }, 2000);
+            };
+            
+            reader.onerror = (error) => {
+                console.error('Error reading file:', error);
+                uploadButton.innerHTML = '<i class="fas fa-times"></i> Error!';
+                uploadButton.style.backgroundColor = '#e74c3c';
+                
+                setTimeout(() => {
+                    uploadButton.innerHTML = '<i class="fas fa-camera"></i> Update Photo';
+                    uploadButton.style.backgroundColor = '';
+                }, 2000);
+            };
+            
+            reader.readAsDataURL(file);
+        } else {
+            alert('Please select a valid image file (JPEG, PNG, etc.).');
+        }
+    });
 
-        // Add visual feedback for image upload
-        document.addEventListener('dragover', (e) => {
-            e.preventDefault();
-            document.body.classList.add('dragover');
-        });
+    uploadButton.addEventListener('click', () => {
+        profileImageInput.click();
+    });
 
-        document.addEventListener('dragleave', (e) => {
-            e.preventDefault();
-            document.body.classList.remove('dragover');
+    // Add hover effect to feature cards
+    document.querySelectorAll('.feature-card').forEach(card => {
+        card.addEventListener('mouseenter', () => {
+            card.style.transform = 'translateY(-5px)';
+            card.style.boxShadow = '0 8px 15px rgba(0, 0, 0, 0.2)';
         });
+        
+        card.addEventListener('mouseleave', () => {
+            card.style.transform = '';
+            card.style.boxShadow = 'var(--shadow)';
+        });
+    });
 
-        document.addEventListener('drop', (e) => {
-            e.preventDefault();
-            document.body.classList.remove('dragover');
-        });
+    // Animation for progress bar
+    const progressFill = document.querySelector('.progress-fill');
+    let width = 0;
+    const targetWidth = 75; // Target percentage
+    const interval = setInterval(() => {
+        if (width >= targetWidth) {
+            clearInterval(interval);
+        } else {
+            width++;
+            progressFill.style.width = `${width}%`;
+        }
+    }, 20);
+
+    // Drag and drop for profile picture
+    profilePicture.addEventListener('dragover', (e) => {
+        e.preventDefault();
+        profilePicture.style.border = '3px dashed #2ecc71';
+    });
+
+    profilePicture.addEventListener('dragleave', () => {
+        profilePicture.style.border = '3px solid var(--primary-color)';
+    });
+
+    profilePicture.addEventListener('drop', (e) => {
+        e.preventDefault();
+        profilePicture.style.border = '3px solid var(--primary-color)';
+        
+        const file = e.dataTransfer.files[0];
+        if (file && file.type.startsWith('image/')) {
+            profileImageInput.files = e.dataTransfer.files;
+            const event = new Event('change');
+            profileImageInput.dispatchEvent(event);
+        }
+    });
+
+    // Check if this is a new user (just registered)
+    const urlParams = new URLSearchParams(window.location.search);
+    if (urlParams.has('newUser')) {
+        // Show welcome animation
+        const welcomeMessage = document.createElement('div');
+        welcomeMessage.style.position = 'fixed';
+        welcomeMessage.style.top = '0';
+        welcomeMessage.style.left = '0';
+        welcomeMessage.style.width = '100%';
+        welcomeMessage.style.height = '100%';
+        welcomeMessage.style.backgroundColor = 'rgba(46, 204, 113, 0.9)';
+        welcomeMessage.style.display = 'flex';
+        welcomeMessage.style.flexDirection = 'column';
+        welcomeMessage.style.justifyContent = 'center';
+        welcomeMessage.style.alignItems = 'center';
+        welcomeMessage.style.color = 'white';
+        welcomeMessage.style.zIndex = '1000';
+        welcomeMessage.style.fontSize = '2rem';
+        welcomeMessage.style.animation = 'fadeOut 3s forwards 2s';
+        
+        welcomeMessage.innerHTML = `
+            <h1>Welcome to BITCHART, ${userData.firstName}!</h1>
+            <p>Your data analytics journey begins now</p>
+        `;
+        
+        document.body.appendChild(welcomeMessage);
+        
+        // Remove the parameter from URL
+        window.history.replaceState({}, document.title, window.location.pathname);
+    }
+});
+
+// Add global drag and drop feedback
+document.addEventListener('dragover', (e) => {
+    e.preventDefault();
+    document.body.classList.add('dragover');
+});
+
+document.addEventListener('dragleave', (e) => {
+    e.preventDefault();
+    document.body.classList.remove('dragover');
+});
+
+document.addEventListener('drop', (e) => {
+    e.preventDefault();
+    document.body.classList.remove('dragover');
+});
+
+// Add animation for dashboard button
+document.querySelector('.dashboard-btn').addEventListener('mouseenter', function() {
+    this.querySelector('i').style.transform = 'translateX(5px)';
+});
+
+document.querySelector('.dashboard-btn').addEventListener('mouseleave', function() {
+    this.querySelector('i').style.transform = '';
+});
     </script>
 </body>
 </html>
