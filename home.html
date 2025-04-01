@@ -163,8 +163,6 @@
             background: var(--secondary-color);
         }
 
-        /* Add remaining styles from previous answer */
-         /* Add these styles */
         .post-card {
             background: white;
             border-radius: 15px;
@@ -250,7 +248,6 @@
             color: white;
             font-size: 1.5rem;
         }
-    
     </style>
 </head>
 <body>
@@ -327,25 +324,19 @@
         </div>
     </footer>
 
-    <!-- Previous script content remains the same -->
-</body>
-</html>
-
     <script>
         document.addEventListener('DOMContentLoaded', () => {
-            // Load profile data
+            // Load user data from localStorage
+            const userData = JSON.parse(localStorage.getItem('userData')) || {};
+            const profilePic = localStorage.getItem('profilePicture') || 'https://source.unsplash.com/random/200x200';
+
+            // Set profile information
             const profilePicture = document.getElementById('profile-picture');
             const usernameElement = document.getElementById('username');
-            
-            // Get user data from localStorage
-            const firstName = localStorage.getItem('firstName') || 'User';
-            const lastName = localStorage.getItem('lastName') || 'Name';
-            const profilePic = localStorage.getItem('profilePicture') || 'https://source.unsplash.com/random/200x200';
-            
             profilePicture.src = profilePic;
-            usernameElement.textContent = `${firstName} ${lastName}`;
+            usernameElement.textContent = `${userData.firstName || 'User'} ${userData.lastName || 'Name'}`;
 
-            // Story creation
+            // Story creation handler
             document.getElementById('addStory').addEventListener('click', function() {
                 const input = document.createElement('input');
                 input.type = 'file';
@@ -370,7 +361,7 @@
                 input.click();
             });
 
-            // Post functionality
+            // Post creation handler
             const postButton = document.querySelector('.post-button');
             const postInput = document.querySelector('.post-input');
             const postsFeed = document.getElementById('postsFeed');
@@ -384,7 +375,7 @@
                         <div class="post-header">
                             <img class="post-author-img" src="${profilePic}" alt="User">
                             <div>
-                                <h4>${firstName} ${lastName}</h4>
+                                <h4>${userData.firstName || 'User'} ${userData.lastName || 'Name'}</h4>
                                 <p class="text-muted">Just now</p>
                             </div>
                         </div>
@@ -406,7 +397,7 @@
                 postInput.value = '';
             });
 
-            // Like functionality
+            // Like button handler
             postsFeed.addEventListener('click', (e) => {
                 if (e.target.closest('.like-btn')) {
                     const likeBtn = e.target.closest('.like-btn');
